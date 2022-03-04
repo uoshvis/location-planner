@@ -4,7 +4,8 @@ import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import events from './events';
 import './App.css';
-import Form from './Form';
+import Modal from './Modal';
+
 
 require('moment/locale/lt.js')
 
@@ -17,24 +18,48 @@ class App extends React.Component {
 
     this.state = {
       events,
-      showForm: false,
+      showModal: false,
+      title: '',
 
     }
 
     this.handleSelectSlot = this.handleSelectSlot.bind(this)
     this.handeleSelectEvent = this.handeleSelectEvent.bind(this)
-
+    this.handleCloseModal = this.handleCloseModal.bind(this)
+    this.handleSubmitForm = this.handleSubmitForm.bind(this)
+    this.handleTitleChange = this.handleTitleChange.bind(this)
   }
 
   handleSelectSlot(e) {
     console.log(e)
     this.setState({
-      showForm: true
+      showModal: true
     })
   }
 
   handeleSelectEvent(e) {
     console.log(e)
+  }
+
+  handleCloseModal() {
+    this.setState({
+      showModal: false
+    })
+  }
+
+  handleSubmitForm(e) {
+    e.preventDefault();
+    
+    this.setState({
+      showModal: false,
+      title: ''
+    })
+  }
+
+  handleTitleChange(e) {
+    this.setState({
+      title: e.target.value
+    })
   }
 
   render() {
@@ -51,10 +76,14 @@ class App extends React.Component {
           onSelectEvent={this.handeleSelectEvent}
         />
 
-        {this.state.showForm &&
+        {this.state.showModal &&
 
-          <Form
-            name={'Bob'}
+          <Modal
+            showModal={this.state.showModal}
+            handleCloseModal={this.handleCloseModal}
+            handleSubmitForm={this.handleSubmitForm}
+            handleTitleChange={this.handleTitleChange}
+            title={this.state.title}
           />
 
         }

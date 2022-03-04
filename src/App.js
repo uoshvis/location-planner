@@ -4,6 +4,7 @@ import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import events from './events';
 import './App.css';
+import Form from './Form';
 
 require('moment/locale/lt.js')
 
@@ -15,11 +16,26 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      events,      
+      events,
+      showForm: false,
+
     }
+
+    this.handleSelectSlot = this.handleSelectSlot.bind(this)
+    this.handeleSelectEvent = this.handeleSelectEvent.bind(this)
 
   }
 
+  handleSelectSlot(e) {
+    console.log(e)
+    this.setState({
+      showForm: true
+    })
+  }
+
+  handeleSelectEvent(e) {
+    console.log(e)
+  }
 
   render() {
     return (
@@ -31,7 +47,18 @@ class App extends React.Component {
           events={this.state.events}
           defaultView={Views.MONTH}
           defaultDate={new Date(2015, 3, 12)}
+          onSelectSlot={this.handleSelectSlot}
+          onSelectEvent={this.handeleSelectEvent}
         />
+
+        {this.state.showForm &&
+
+          <Form
+            name={'Bob'}
+          />
+
+        }
+
       </div>
     );
 

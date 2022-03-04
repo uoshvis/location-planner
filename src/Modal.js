@@ -36,8 +36,11 @@ function Modal(props) {
                 handleSubmitForm={props.handleSubmitForm}
                 handleTitleChange={props.handleTitleChange}
                 title={props.title}
+                start={props.start}
+                end={props.end}
               />
             <button onClick={props.handleCloseModal}>Close</button>
+
             </ReactModal>
             
         </div>

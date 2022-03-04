@@ -28,22 +28,37 @@ class App extends React.Component {
     events,
     showModal: false,
     title: '',
+    start: '',
+    end: ''
   })
 
-  resetState = () => {
-      this.setState(this.getInitialState());
-    }
-
-  handleSelectSlot(e) {
-    this.setState({ showModal: true })
+  resetState() {
+    this.setState({
+      events: [
+        ...this.state.events
+      ],
+      showModal: false,
+      title: '',
+      start: '',
+      end: ''
+    });
   }
 
-  handeleSelectEvent({ id, title, start }) {    
+  handleSelectSlot({ start, end }) {
+    this.setState({
+      showModal: true,
+      start,
+      end
+    })
+  }
+
+  handeleSelectEvent({ id, title, start, end }) {    
     this.setState({
       showModal: true,
       id,
       title,
       start,
+      end,
     })
   }
 
@@ -54,7 +69,23 @@ class App extends React.Component {
   handleSubmitForm(e) {
     e.preventDefault();
     
-    this.resetState()
+    if (this.state.title){
+      this.setState({
+        events: [
+          ...this.state.events,
+          {
+            title: this.state.title,
+            start: this.state.start,
+            end: this.state.end,            
+          }
+        ],
+        showModal: false,
+        title: '',
+        start: '',
+        end: ''  
+      })
+    }
+
   }
 
   handleTitleChange(e) {
@@ -83,6 +114,8 @@ class App extends React.Component {
             handleSubmitForm={this.handleSubmitForm}
             handleTitleChange={this.handleTitleChange}
             title={this.state.title}
+            start={this.state.start}
+            end={this.state.end}
           />
 
         }

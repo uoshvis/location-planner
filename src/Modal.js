@@ -37,6 +37,7 @@ function Modal(props) {
                 handleTitleChange={props.handleTitleChange}
                 title={props.title}
               />
+            <button onClick={props.handleCloseModal}>Close</button>
             </ReactModal>
             
         </div>

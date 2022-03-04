@@ -14,52 +14,51 @@ const localizer = momentLocalizer(moment)
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
-
-    this.state = {
-      events,
-      showModal: false,
-      title: '',
-
-    }
-
+    super(props);
+    this.state = this.getInitialState();
+    
     this.handleSelectSlot = this.handleSelectSlot.bind(this)
     this.handeleSelectEvent = this.handeleSelectEvent.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
     this.handleSubmitForm = this.handleSubmitForm.bind(this)
     this.handleTitleChange = this.handleTitleChange.bind(this)
   }
+  
+  getInitialState = () => ({
+    events,
+    showModal: false,
+    title: '',
+  })
+
+  resetState = () => {
+      this.setState(this.getInitialState());
+    }
 
   handleSelectSlot(e) {
-    console.log(e)
-    this.setState({
-      showModal: true
-    })
+    this.setState({ showModal: true })
   }
 
-  handeleSelectEvent(e) {
-    console.log(e)
+  handeleSelectEvent({ id, title, start }) {    
+    this.setState({
+      showModal: true,
+      id,
+      title,
+      start,
+    })
   }
 
   handleCloseModal() {
-    this.setState({
-      showModal: false
-    })
+    this.resetState()
   }
 
   handleSubmitForm(e) {
     e.preventDefault();
     
-    this.setState({
-      showModal: false,
-      title: ''
-    })
+    this.resetState()
   }
 
   handleTitleChange(e) {
-    this.setState({
-      title: e.target.value
-    })
+    this.setState({ title: e.target.value })
   }
 
   render() {

@@ -34,14 +34,16 @@ function Modal(props) {
             <Form
               handleSubmitForm={props.handleSubmitForm}
               handleUpdateForm={props.handleUpdateForm}
+              onDelete={props.onDelete}
               handleTitleChange={props.handleTitleChange}
               updatable={props.updatable}
+              id={props.id}
               title={props.title}
               start={props.start}
               end={props.end}
             />
 
-            <button onClick={props.handleCloseModal}>Close</button>
+            <button id='btn-close' onClick={props.handleCloseModal}>Close</button>
 
             </ReactModal>
             

@@ -22,6 +22,7 @@ class App extends React.Component {
     this.handleCloseModal = this.handleCloseModal.bind(this)
     this.handleSubmitForm = this.handleSubmitForm.bind(this)
     this.handleUpdateForm = this.handleUpdateForm.bind(this)
+    this.onDelete = this.onDelete.bind(this)
     this.handleTitleChange = this.handleTitleChange.bind(this)
   }
   
@@ -120,7 +121,19 @@ class App extends React.Component {
       })
     } else {alert('Please, enter the title')}
 
-  }  
+  }
+  
+  onDelete(id) {
+    this.setState((prevState) => ({
+      events: prevState.events.filter(item => item.id !== id),
+      showModal: false, 
+      updatable: false,
+      id: '',
+      title: '',
+      start: '',
+      end: ''
+    }))
+  }
 
   handleTitleChange(e) {
     this.setState({ title: e.target.value })
@@ -148,7 +161,9 @@ class App extends React.Component {
             handleCloseModal={this.handleCloseModal}
             handleSubmitForm={this.handleSubmitForm}
             handleUpdateForm={this.handleUpdateForm}
+            onDelete={this.onDelete}
             handleTitleChange={this.handleTitleChange}
+            id={this.state.id}
             title={this.state.title}
             start={this.state.start}
             end={this.state.end}

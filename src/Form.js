@@ -13,7 +13,14 @@ function Form(props) {
         <p>Start: {props.start.toString()}</p>
         <p>End: {props.end.toString()}</p>
         
-      <input type="submit" value={props.updatable ? "Update" : "Submit"} />
+      <input id="btn-submit" type="submit" value={props.updatable ? "Update" : "Submit"} />
+      {
+        props.updatable &&
+        <button id="btn-delete" type="button" onClick={() => props.onDelete(props.id)}>
+        Delete
+        </button>
+      }
+
     </form>
   );      
   }

@@ -1,3 +1,19 @@
 .App {
   text-align: center;
 }
+
+#btn-close {
+  position: absolute;
+  background: rgb(99, 97, 97);
+  color: white;
+  top: 0px;
+  right: 0px;
+}
+
+#btn-delete {
+  float: left;
+}
+
+#btn-submit {
+  float: right;
+}

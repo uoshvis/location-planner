@@ -23,7 +23,6 @@ const customStyles = {
 
 
 function Modal(props) {
-
     return (
         <div>
             <ReactModal
@@ -32,13 +31,16 @@ function Modal(props) {
               contentLabel={'Calendar form'}
               onRequestClose={props.handleCloseModal}
             >
-              <Form
-                handleSubmitForm={props.handleSubmitForm}
-                handleTitleChange={props.handleTitleChange}
-                title={props.title}
-                start={props.start}
-                end={props.end}
-              />
+            <Form
+              handleSubmitForm={props.handleSubmitForm}
+              handleUpdateForm={props.handleUpdateForm}
+              handleTitleChange={props.handleTitleChange}
+              updatable={props.updatable}
+              title={props.title}
+              start={props.start}
+              end={props.end}
+            />
+
             <button onClick={props.handleCloseModal}>Close</button>
 
             </ReactModal>

@@ -21,12 +21,15 @@ class App extends React.Component {
     this.handeleSelectEvent = this.handeleSelectEvent.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
     this.handleSubmitForm = this.handleSubmitForm.bind(this)
+    this.handleUpdateForm = this.handleUpdateForm.bind(this)
     this.handleTitleChange = this.handleTitleChange.bind(this)
   }
   
   getInitialState = () => ({
     events,
     showModal: false,
+    updatable: false,
+    id: '',
     title: '',
     start: '',
     end: ''
@@ -38,6 +41,8 @@ class App extends React.Component {
         ...this.state.events
       ],
       showModal: false,
+      updatable: false,
+      id: '',
       title: '',
       start: '',
       end: ''
@@ -55,6 +60,7 @@ class App extends React.Component {
   handeleSelectEvent({ id, title, start, end }) {    
     this.setState({
       showModal: true,
+      updatable: true,
       id,
       title,
       start,
@@ -74,6 +80,7 @@ class App extends React.Component {
         events: [
           ...this.state.events,
           {
+            id: Date.now(),
             title: this.state.title,
             start: this.state.start,
             end: this.state.end,            
@@ -84,9 +91,36 @@ class App extends React.Component {
         start: '',
         end: ''  
       })
-    }
+    } else {alert('Please, enter the title')}   
 
   }
+
+  handleUpdateForm(e) {
+    e.preventDefault();
+
+    const newEvents = this.state.events.map(event =>
+      event.id === this.state.id
+      ? {...event,
+        title: this.state.title,
+        start: this.state.start,
+        end: this.state.end} : event
+      )
+
+    if (this.state.title){
+      this.setState({
+        events: [
+          ...newEvents
+        ],
+        showModal: false,
+        updatable: false,
+        id: '',
+        title: '',
+        start: '',
+        end: ''  
+      })
+    } else {alert('Please, enter the title')}
+
+  }  
 
   handleTitleChange(e) {
     this.setState({ title: e.target.value })
@@ -110,8 +144,10 @@ class App extends React.Component {
 
           <Modal
             showModal={this.state.showModal}
+            updatable={this.state.updatable}
             handleCloseModal={this.handleCloseModal}
             handleSubmitForm={this.handleSubmitForm}
+            handleUpdateForm={this.handleUpdateForm}
             handleTitleChange={this.handleTitleChange}
             title={this.state.title}
             start={this.state.start}

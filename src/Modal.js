@@ -6,13 +6,14 @@ ReactModal.setAppElement('#root');
 
 const customStyles = {
     content: {
+      width: '50%',
+      height: '50%',
       top: '50%',
       left: '50%',
       right: 'auto',
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
-      color: 'lightsteelblue'
     },
     overlay: {
       backgroundColor: 'lightgreen',
@@ -31,17 +32,21 @@ function Modal(props) {
               contentLabel={'Calendar form'}
               onRequestClose={props.handleCloseModal}
             >
-            <Form
-              handleSubmitForm={props.handleSubmitForm}
-              handleUpdateForm={props.handleUpdateForm}
-              onDelete={props.onDelete}
-              handleTitleChange={props.handleTitleChange}
-              updatable={props.updatable}
-              id={props.id}
-              title={props.title}
-              start={props.start}
-              end={props.end}
-            />
+            <div>
+              <Form
+                handleSubmitForm={props.handleSubmitForm}
+                handleUpdateForm={props.handleUpdateForm}
+                onDelete={props.onDelete}
+                handleTitleChange={props.handleTitleChange}
+                onDateChange={props.onDateChange}
+                updatable={props.updatable}
+                id={props.id}
+                title={props.title}
+                start={props.start}
+                end={props.end}
+              />
+            </div>
+
 
             <button id='btn-close' onClick={props.handleCloseModal}>X</button>
 

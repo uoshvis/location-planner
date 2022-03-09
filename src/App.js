@@ -24,6 +24,8 @@ class App extends React.Component {
     this.handleUpdateForm = this.handleUpdateForm.bind(this)
     this.onDelete = this.onDelete.bind(this)
     this.handleTitleChange = this.handleTitleChange.bind(this)
+    this.onDateChange = this.onDateChange.bind(this)
+
   }
   
   getInitialState = () => ({
@@ -139,16 +141,19 @@ class App extends React.Component {
     this.setState({ title: e.target.value })
   }
 
+  onDateChange({ isStartDate }, date) {
+    isStartDate ? this.setState({ start: date }) : this.setState({ end: date })
+  }
+
   render() {
     return (
       <div className="App">
         <Calendar
           selectable
           localizer={localizer}
-          style={{ height: 500 }}
+          style={{ height: 600 }}
           events={this.state.events}
           defaultView={Views.MONTH}
-          defaultDate={new Date(2015, 3, 12)}
           onSelectSlot={this.handleSelectSlot}
           onSelectEvent={this.handeleSelectEvent}
         />
@@ -163,6 +168,7 @@ class App extends React.Component {
             handleUpdateForm={this.handleUpdateForm}
             onDelete={this.onDelete}
             handleTitleChange={this.handleTitleChange}
+            onDateChange={this.onDateChange}
             id={this.state.id}
             title={this.state.title}
             start={this.state.start}

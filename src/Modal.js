@@ -43,7 +43,7 @@ function Modal(props) {
               end={props.end}
             />
 
-            <button id='btn-close' onClick={props.handleCloseModal}>Close</button>
+            <button id='btn-close' onClick={props.handleCloseModal}>X</button>
 
             </ReactModal>
             

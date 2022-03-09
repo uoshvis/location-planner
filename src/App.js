@@ -23,8 +23,9 @@ class App extends React.Component {
     this.handleSubmitForm = this.handleSubmitForm.bind(this)
     this.handleUpdateForm = this.handleUpdateForm.bind(this)
     this.onDelete = this.onDelete.bind(this)
-    this.handleTitleChange = this.handleTitleChange.bind(this)
+    this.onTitleChange = this.onTitleChange.bind(this)
     this.onDateChange = this.onDateChange.bind(this)
+    this.onDurationChange = this.onDurationChange.bind(this)
 
   }
   
@@ -137,13 +138,22 @@ class App extends React.Component {
     }))
   }
 
-  handleTitleChange(e) {
+  onTitleChange(e) {
     this.setState({ title: e.target.value })
   }
+
 
   onDateChange({ isStartDate }, date) {
     isStartDate ? this.setState({ start: date }) : this.setState({ end: date })
   }
+
+  onDurationChange(e) {
+    this.setState({
+      end: moment(this.state.start).add(Number(e.target.value), 'm').toDate(),
+    })
+
+  }
+
 
   render() {
     return (
@@ -151,7 +161,7 @@ class App extends React.Component {
         <Calendar
           selectable
           localizer={localizer}
-          style={{ height: 600 }}
+          style={{ height: 800 }}
           events={this.state.events}
           defaultView={Views.MONTH}
           onSelectSlot={this.handleSelectSlot}
@@ -167,8 +177,9 @@ class App extends React.Component {
             handleSubmitForm={this.handleSubmitForm}
             handleUpdateForm={this.handleUpdateForm}
             onDelete={this.onDelete}
-            handleTitleChange={this.handleTitleChange}
+            onTitleChange={this.onTitleChange}
             onDateChange={this.onDateChange}
+            onDurationChange={this.onDurationChange}
             id={this.state.id}
             title={this.state.title}
             start={this.state.start}

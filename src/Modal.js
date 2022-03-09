@@ -37,8 +37,9 @@ function Modal(props) {
                 handleSubmitForm={props.handleSubmitForm}
                 handleUpdateForm={props.handleUpdateForm}
                 onDelete={props.onDelete}
-                handleTitleChange={props.handleTitleChange}
+                onTitleChange={props.onTitleChange}
                 onDateChange={props.onDateChange}
+                onDurationChange={props.onDurationChange}
                 updatable={props.updatable}
                 id={props.id}
                 title={props.title}

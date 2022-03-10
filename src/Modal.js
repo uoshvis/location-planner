@@ -1,36 +1,18 @@
 import ReactModal from "react-modal";
 import Form from "./Form"
 
-ReactModal.setAppElement('#root');
-
-
-const customStyles = {
-    content: {
-      width: '50%',
-      height: '50%',
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-    overlay: {
-      backgroundColor: 'lightgreen',
-      zIndex: '5',
-    },
-  };
-  
-
 
 function Modal(props) {
+
     return (
         <div>
             <ReactModal
               isOpen={props.showModal}
-              style={customStyles}
               contentLabel={'Calendar form'}
               onRequestClose={props.handleCloseModal}
+              className="Modal"
+              overlayClassName="Overlay"
+              parentSelector={() => document.querySelector('.App')}
             >
             <div>
               <Form

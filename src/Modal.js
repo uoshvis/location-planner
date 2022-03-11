@@ -1,6 +1,7 @@
 import ReactModal from "react-modal";
 import Form from "./Form"
 
+ReactModal.setAppElement('#root')
 
 function Modal(props) {
 

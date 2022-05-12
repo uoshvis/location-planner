@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Calendar, Views, momentLocalizer} from 'react-big-calendar'
-import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import events from './events';
+import moment from 'moment'
+import initialEvents from './events';
 import './App.css';
 import Modal from './Modal';
 
@@ -12,187 +12,135 @@ require('moment/locale/lt.js')
 const localizer = momentLocalizer(moment)
 
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.getInitialState();
+function App() {
+
+  const [events, setEvents] = useState(initialEvents)
+  const [showModal, setShowModal] = useState(false)
+  const [updatable, setUpdatable] = useState(false)
+  const [id, setId] = useState()
+  const [title, setTitle] = useState()
+  const [start, setStart] = useState()
+  const [end, setEnd] = useState()
+
+  const resetState = () => {
+    setShowModal(false)
+    setUpdatable(false)
+    setId()
+    setTitle()
+    setStart()
+    setEnd()
+  }
+
+  const handleSelectSlot = ({ start, end }) => {
+    setShowModal(true)
+    setStart(start)
+    setEnd(end)
+  }
+
+  const handeleSelectEvent = ({ id, title, start, end }) => {    
+    setShowModal(true)
+    setUpdatable(true)
+    setId(id)
+    setTitle(title)
+    setStart(start)
+    setEnd(end)
+  }
+
+  const handleSubmitForm = (e) => {
+    e.preventDefault()
     
-    this.handleSelectSlot = this.handleSelectSlot.bind(this)
-    this.handeleSelectEvent = this.handeleSelectEvent.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
-    this.handleSubmitForm = this.handleSubmitForm.bind(this)
-    this.handleUpdateForm = this.handleUpdateForm.bind(this)
-    this.onDelete = this.onDelete.bind(this)
-    this.onTitleChange = this.onTitleChange.bind(this)
-    this.onDateChange = this.onDateChange.bind(this)
-    this.onDurationChange = this.onDurationChange.bind(this)
-
-  }
-  
-  getInitialState = () => ({
-    events,
-    showModal: false,
-    updatable: false,
-    id: '',
-    title: '',
-    start: '',
-    end: ''
-  })
-
-  resetState() {
-    this.setState({
-      events: [
-        ...this.state.events
-      ],
-      showModal: false,
-      updatable: false,
-      id: '',
-      title: '',
-      start: '',
-      end: ''
-    });
+    if (title) {
+      const newEvent = {
+        id: Date.now(),
+        title: title,
+        start: start, 
+        end: end
+      }
+      setEvents([...events, newEvent])
+      resetState()
+    }
+    else {
+      alert('Please enter the title')
+    }
   }
 
-  handleSelectSlot({ start, end }) {
-    this.setState({
-      showModal: true,
-      start,
-      end
-    })
+  const handleUpdateForm = (e) =>  {
+    e.preventDefault()
+
+    const updatedEventList = events.map(event =>
+      event.id === id ?
+      {
+        ...event,
+        title: title,
+        start: start, 
+        end: end
+      } : event
+    )
+    if (title) {
+      setEvents(updatedEventList)
+      resetState()
+    }
+    else {
+      alert('Please, enter the title')
+    }
   }
 
-  handeleSelectEvent({ id, title, start, end }) {    
-    this.setState({
-      showModal: true,
-      updatable: true,
-      id,
-      title,
-      start,
-      end,
-    })
+  const onDelete = (id) => {
+    const filteredEventList = events.filter(event => event.id !== id)
+    setEvents(filteredEventList)
+    resetState()
   }
 
-  handleCloseModal() {
-    this.resetState()
+  const handleCloseModal = () => {
+    resetState()
   }
 
-  handleSubmitForm(e) {
-    e.preventDefault();
-    
-    if (this.state.title){
-      this.setState({
-        events: [
-          ...this.state.events,
-          {
-            id: Date.now(),
-            title: this.state.title,
-            start: this.state.start,
-            end: this.state.end,            
-          }
-        ],
-        showModal: false,
-        title: '',
-        start: '',
-        end: ''  
-      })
-    } else {alert('Please, enter the title')}   
-
+  const onTitleChange = (e) => {
+    setTitle(e.target.value)
   }
 
-  handleUpdateForm(e) {
-    e.preventDefault();
-
-    const newEvents = this.state.events.map(event =>
-      event.id === this.state.id
-      ? {...event,
-        title: this.state.title,
-        start: this.state.start,
-        end: this.state.end} : event
-      )
-
-    if (this.state.title){
-      this.setState({
-        events: [
-          ...newEvents
-        ],
-        showModal: false,
-        updatable: false,
-        id: '',
-        title: '',
-        start: '',
-        end: ''  
-      })
-    } else {alert('Please, enter the title')}
-
-  }
-  
-  onDelete(id) {
-    this.setState((prevState) => ({
-      events: prevState.events.filter(item => item.id !== id),
-      showModal: false, 
-      updatable: false,
-      id: '',
-      title: '',
-      start: '',
-      end: ''
-    }))
+  const onDateChange = ({ isStartDate }, date) => {
+    isStartDate ? setStart(date) : setEnd(date)
   }
 
-  onTitleChange(e) {
-    this.setState({ title: e.target.value })
+  const onDurationChange = (e) => { 
+    setEnd(moment(start).add(Number(e.target.value), 'm').toDate())
   }
 
 
-  onDateChange({ isStartDate }, date) {
-    isStartDate ? this.setState({ start: date }) : this.setState({ end: date })
-  }
-
-  onDurationChange(e) {
-    this.setState({
-      end: moment(this.state.start).add(Number(e.target.value), 'm').toDate(),
-    })
-
-  }
-
-
-  render() {
-    return (
-      <div className="App">
+  return (
+    <div className="App">
         <Calendar
           selectable
           localizer={localizer}
           style={{ height: 800 }}
-          events={this.state.events}
+          events={events}
           defaultView={Views.MONTH}
-          onSelectSlot={this.handleSelectSlot}
-          onSelectEvent={this.handeleSelectEvent}
+          onSelectSlot={handleSelectSlot}
+          onSelectEvent={handeleSelectEvent}
         />
 
-        {this.state.showModal &&
+        {showModal &&
 
           <Modal
-            showModal={this.state.showModal}
-            updatable={this.state.updatable}
-            handleCloseModal={this.handleCloseModal}
-            handleSubmitForm={this.handleSubmitForm}
-            handleUpdateForm={this.handleUpdateForm}
-            onDelete={this.onDelete}
-            onTitleChange={this.onTitleChange}
-            onDateChange={this.onDateChange}
-            onDurationChange={this.onDurationChange}
-            id={this.state.id}
-            title={this.state.title}
-            start={this.state.start}
-            end={this.state.end}
+            showModal={showModal}
+            updatable={updatable}
+            handleCloseModal={handleCloseModal}
+            handleSubmitForm={handleSubmitForm}
+            handleUpdateForm={handleUpdateForm}
+            onDelete={onDelete}
+            onTitleChange={onTitleChange}
+            onDateChange={onDateChange}
+            onDurationChange={onDurationChange}
+            id={id}
+            title={title}
+            start={start}
+            end={end}
           />
-
         }
-
-      </div>
-    );
-
-  }
-
+    </div>
+  )
 }
+
 
 export default App;

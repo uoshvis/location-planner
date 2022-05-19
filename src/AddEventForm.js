@@ -35,18 +35,17 @@ const AddEventForm = props => {
         setEvent({ ...event, [name]: value })
     }
 
-    return (
-        <form
-            onSubmit={e => {
-                e.preventDefault()
-                if (!event.title || !event.start || !event.end) {
-                    alert('No title/start/end value')
-                    return
-                }
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (!event.title || !event.start || !event.end) {
+            alert('No title/start/end value')
+            return 
+        }
+        props.addEvent(event)
+    }
 
-                props.addEvent(event)
-            }}
-        >
+    return (
+        <form onSubmit={(e) => handleSubmit(e)}>
             <label>Title</label>
             <input
                 type="text"

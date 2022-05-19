@@ -28,17 +28,17 @@ const UpdateEventForm = props => {
         setEvent({ ...event, [name]: value })
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        if (!event.title || !event.start || !event.end) {
+            alert('No title/start/end value')
+            return 
+        }
+        props.updateEvent(event.id, event)
+    }
+
     return (
-        <form
-            onSubmit={e => {
-                e.preventDefault()
-                if (!event.title || !event.start || !event.end) {
-                    alert('No title/start/end value')
-                    return
-                }
-                props.updateEvent(event.id, event)
-            }}
-        >
+        <form onSubmit={(e) => handleSubmit(e)}>
             <label>Title</label>
             <input
                 type="text"
@@ -73,6 +73,7 @@ const UpdateEventForm = props => {
             <button  type="button" onClick={() => props.deleteEvent(event.id)}>Delete</button>
 
             <button type="submit">Update</button>
+
         </form>
     )
     }

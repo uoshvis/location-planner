@@ -22,8 +22,7 @@ function App() {
   const [updateMode, setUpdateMode] = useState(false)
 
 
-  const handleSelectSlot = ({ start }) => {
-    
+  const handleSelectSlot = ({ start }) => {    
     setShowModal(true)
     setUpdateMode(false)
     const newEnd = moment(start).add(Number(30), 'm').toDate()
@@ -46,20 +45,17 @@ function App() {
     event.id = Date.now()
 
     setEvents([...events, event])
-    setShowModal(false)
-    setUpdateMode(false)
+    handleCloseModal()
   }
 
   const updateEvent = (id, updatedEvent) => {
     setEvents(events.map((event) => (event.id === id ? updatedEvent : event)))
-    setShowModal(false)
-    setUpdateMode(false)
+    handleCloseModal()
   }
   
   const deleteEvent = id => {
-    setShowModal(false)
-    setUpdateMode(false)
     setEvents(events.filter(event => event.id !== id))
+    handleCloseModal()
   }
 
 

@@ -1,11 +1,13 @@
 import ReactModal from "react-modal";
-import Form from "./Form"
+import AddEventForm from "./AddEventForm";
+import UpdateEventForm from "./UpdateEventForm";
 
 ReactModal.setAppElement('#root')
 
+
 function Modal(props) {
 
-    return (
+  return (
         <div>
             <ReactModal
               isOpen={props.showModal}
@@ -16,26 +18,31 @@ function Modal(props) {
               parentSelector={() => document.querySelector('.App')}
             >
             <div>
-              <Form
-                handleSubmitForm={props.handleSubmitForm}
-                handleUpdateForm={props.handleUpdateForm}
-                onDelete={props.onDelete}
-                onTitleChange={props.onTitleChange}
-                onDateChange={props.onDateChange}
-                onDurationChange={props.onDurationChange}
-                updatable={props.updatable}
-                id={props.id}
-                title={props.title}
-                start={props.start}
-                end={props.end}
-              />
+
+              { 
+                !props.updateMode &&
+                <AddEventForm
+                  currentEvent={props.currentEvent}
+                  addEvent={props.addEvent}
+                />
+              }
+
+              { 
+                props.updateMode &&
+                <UpdateEventForm
+                  currentEvent={props.currentEvent}
+                  updateEvent={props.updateEvent}
+                  deleteEvent={props.deleteEvent}
+                  handleCloseModal={props.handleCloseModal}
+                />
+              }
+
             </div>
 
 
             <button id='btn-close' onClick={props.handleCloseModal}>X</button>
 
-            </ReactModal>
-            
+            </ReactModal>            
         </div>
 
     )    

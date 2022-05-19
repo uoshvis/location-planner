@@ -14,97 +14,52 @@ const localizer = momentLocalizer(moment)
 
 function App() {
 
+  const initialEventState = { id: null, tile: '', start: '', end: '' }
+
   const [events, setEvents] = useState(initialEvents)
+  const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
-  const [updatable, setUpdatable] = useState(false)
-  const [id, setId] = useState()
-  const [title, setTitle] = useState()
-  const [start, setStart] = useState()
-  const [end, setEnd] = useState()
+  const [updateMode, setUpdateMode] = useState(false)
 
-  const resetState = () => {
-    setShowModal(false)
-    setUpdatable(false)
-    setId()
-    setTitle()
-    setStart()
-    setEnd()
-  }
 
-  const handleSelectSlot = ({ start, end }) => {
+  const handleSelectSlot = ({ start }) => {
+    
     setShowModal(true)
-    setStart(start)
-    setEnd(end)
+    setUpdateMode(false)
+    const newEnd = moment(start).add(Number(30), 'm').toDate()
+    setCurrentEvent({...currentEvent, start: start, end: newEnd})
   }
 
   const handeleSelectEvent = ({ id, title, start, end }) => {    
     setShowModal(true)
-    setUpdatable(true)
-    setId(id)
-    setTitle(title)
-    setStart(start)
-    setEnd(end)
-  }
-
-  const handleSubmitForm = (e) => {
-    e.preventDefault()
-    
-    if (title) {
-      const newEvent = {
-        id: Date.now(),
-        title: title,
-        start: start, 
-        end: end
-      }
-      setEvents([...events, newEvent])
-      resetState()
-    }
-    else {
-      alert('Please enter the title')
-    }
-  }
-
-  const handleUpdateForm = (e) =>  {
-    e.preventDefault()
-
-    const updatedEventList = events.map(event =>
-      event.id === id ?
-      {
-        ...event,
-        title: title,
-        start: start, 
-        end: end
-      } : event
-    )
-    if (title) {
-      setEvents(updatedEventList)
-      resetState()
-    }
-    else {
-      alert('Please, enter the title')
-    }
-  }
-
-  const onDelete = (id) => {
-    const filteredEventList = events.filter(event => event.id !== id)
-    setEvents(filteredEventList)
-    resetState()
+    setUpdateMode(true)
+    setCurrentEvent({id: id, title: title, start: start, end: end})
   }
 
   const handleCloseModal = () => {
-    resetState()
+    setShowModal(false)
+    setUpdateMode(false)
+    setCurrentEvent(initialEventState)
   }
 
-  const onTitleChange = (e) => {
-    setTitle(e.target.value)
+  const addEvent = (event) => {
+    event.id = Date.now()
+
+    setEvents([...events, event])
+    setShowModal(false)
+    setUpdateMode(false)
   }
 
-  const onDateChange = ({ isStartDate }, date) => {
-    isStartDate ? setStart(date) : setEnd(date)
+  const updateEvent = (id, updatedEvent) => {
+    setEvents(events.map((event) => (event.id === id ? updatedEvent : event)))
+    setShowModal(false)
+    setUpdateMode(false)
   }
-
-  const onDurationChange = (e) => { 
-    setEnd(moment(start).add(Number(e.target.value), 'm').toDate())
+  
+  const deleteEvent = id => {
+    setShowModal(false)
+    setUpdateMode(false)
+    setEvents(events.filter(event => event.id !== id))
   }
 
 
@@ -124,20 +79,14 @@ function App() {
 
           <Modal
             showModal={showModal}
-            updatable={updatable}
             handleCloseModal={handleCloseModal}
-            handleSubmitForm={handleSubmitForm}
-            handleUpdateForm={handleUpdateForm}
-            onDelete={onDelete}
-            onTitleChange={onTitleChange}
-            onDateChange={onDateChange}
-            onDurationChange={onDurationChange}
-            id={id}
-            title={title}
-            start={start}
-            end={end}
+            updateMode={updateMode}
+            addEvent={addEvent}
+            updateEvent={updateEvent}
+            deleteEvent={deleteEvent}
+            currentEvent={currentEvent}
           />
-        }
+        } 
     </div>
   )
 }

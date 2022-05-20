@@ -81,7 +81,7 @@ const AddEventForm = props => {
                 Set duration:
                 <select
                 onChange={handleDurationChange}>
-                    <option selected='selected' value="30">30 min</option>
+                    <option value="30">30 min</option>
                     <option value="60">1 h</option>
                     <option value="90">1 h 30 min</option>
                     <option value="120">2 h</option>

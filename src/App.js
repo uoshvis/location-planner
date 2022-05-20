@@ -62,6 +62,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Patient Planner</h1>
         <Calendar
           selectable
           localizer={localizer}

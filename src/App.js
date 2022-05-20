@@ -25,8 +25,9 @@ function App() {
   const handleSelectSlot = ({ start }) => {    
     setShowModal(true)
     setUpdateMode(false)
-    const newEnd = moment(start).add(Number(30), 'm').toDate()
-    setCurrentEvent({...currentEvent, start: start, end: newEnd})
+    const newStart = moment(start).add(Number(8), 'h').toDate()
+    const newEnd = moment(newStart).add(Number(30), 'm').toDate()
+    setCurrentEvent({...currentEvent, start: newStart, end: newEnd})
   }
 
   const handeleSelectEvent = ({ id, title, start, end }) => {    

@@ -1,6 +1,7 @@
 import ReactModal from "react-modal";
 import AddEventForm from "./AddEventForm";
 import UpdateEventForm from "./UpdateEventForm";
+import {Fragment} from 'react'
 
 ReactModal.setAppElement('#root')
 
@@ -18,24 +19,25 @@ function Modal(props) {
               parentSelector={() => document.querySelector('.App')}
             >
             <div>
-
-              { 
-                !props.updateMode &&
-                <AddEventForm
-                  currentEvent={props.currentEvent}
-                  addEvent={props.addEvent}
-                />
-              }
-
-              { 
-                props.updateMode &&
-                <UpdateEventForm
-                  currentEvent={props.currentEvent}
-                  updateEvent={props.updateEvent}
-                  deleteEvent={props.deleteEvent}
-                  handleCloseModal={props.handleCloseModal}
-                />
-              }
+            { 
+                props.updateMode ? (<Fragment>
+                  <h2>Update Event</h2>
+                  <UpdateEventForm
+                    currentEvent={props.currentEvent}
+                    updateEvent={props.updateEvent}
+                    deleteEvent={props.deleteEvent}
+                    handleCloseModal={props.handleCloseModal}
+                  />
+                </Fragment>
+                ) : (
+                  <Fragment>
+                    <h2>Add Event</h2>
+                    <AddEventForm
+                      currentEvent={props.currentEvent}
+                      addEvent={props.addEvent}
+                  />
+                  </Fragment>
+                )}
 
             </div>
 

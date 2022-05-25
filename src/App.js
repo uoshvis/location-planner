@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import { Calendar, Views, momentLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
-import initialEvents from './events';
+import initialEventsLoc1 from './events_loc1';
+import initialEventsLoc2 from './events_loc2';
+
 import './App.css';
 import Modal from './Modal';
 
@@ -16,10 +18,12 @@ function App() {
 
   const initialEventState = { id: null, tile: '', start: '', end: '' }
 
-  const [events, setEvents] = useState(initialEvents)
+  const [events, setEvents] = useState([...initialEventsLoc1, ...initialEventsLoc2])
   const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
   const [updateMode, setUpdateMode] = useState(false)
+
+  const [location, setLocation] = useState('all')
 
 
   const handleSelectSlot = ({ start }) => {    
@@ -59,10 +63,42 @@ function App() {
     handleCloseModal()
   }
 
+  const handleLocation = (e) => {
+    const locValue = e.target.value
+
+    if (locValue === 'loc1')  {
+      setEvents(initialEventsLoc1)
+      setLocation('loc1')
+      
+
+    }
+    else if (locValue === 'loc2') {
+      setLocation('loc2')
+      setEvents(initialEventsLoc2)
+    }
+
+    else if (locValue ==='all') {
+      setLocation('all')
+      setEvents([ ...initialEventsLoc1, ...initialEventsLoc2 ])
+    }    
+
+  }
+
 
   return (
     <div className="App">
       <h1>Patient Planner</h1>
+      
+      <button className={location ==='all' ? `btn-location btn-location-normal btn-location-active` : `btn-location btn-location-normal` } value={'all'} onClick={(e) => handleLocation(e)}>
+        All locations
+      </button>   
+      <button className={location ==='loc1' ? `btn-location btn-location-normal btn-location-active` : `btn-location btn-location-normal` } value={'loc1'} onClick={(e) => handleLocation(e)}>
+        Location 1
+      </button>
+      <button className={location ==='loc2' ? `btn-location btn-location-normal btn-location-active` : `btn-location btn-location-normal` } value={'loc2'} onClick={(e) => handleLocation(e)}>
+        Location 2
+      </button>
+
         <Calendar
           selectable
           localizer={localizer}
@@ -91,3 +127,21 @@ function App() {
 
 
 export default App;
+
+
+// TODO Add location btn Component
+
+// TODO Update events by location 
+
+// TODO Location field in event
+
+// TODO New event by location
+
+// function Button() {
+
+//   return (
+//     <button className={`btn-location btn-${location}`} value={'loc1'} onClick={(e) => handleLocation(e)}>
+//     Location 1
+//   </button>
+//   )
+// }

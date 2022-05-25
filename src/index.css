@@ -1,3 +1,27 @@
 body {
   margin: 0;
 }
+
+
+.btn-location {
+  border: none;
+  outline: none;
+  padding: 12px 16px;
+  margin: 1px;
+  /* background-color: white; */
+  cursor: pointer;
+}
+
+.btn-location-normal {
+  background-color: white;
+}
+
+.btn-location:hover {
+  background-color: #ddd;
+}
+
+.btn-location-active {
+  background-color: #666;
+  color: white;
+}
+

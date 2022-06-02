@@ -36,6 +36,7 @@ const AddEventForm = props => {
     }
 
     const handleSubmit = e => {
+        // TODO move to parent
         e.preventDefault()
         if (!event.title || !event.start || !event.end) {
             alert('No title/start/end value')
@@ -52,6 +53,13 @@ const AddEventForm = props => {
                 name="title"
                 value={event.title || ''}
                 onChange={handleInputChange} />
+            
+            <label htmlFor="location-select">Location</label>
+            <select name="location" id="location-select" value={event.location} onChange={handleInputChange}>                
+                <option value="" selected hidden >Please Choose...</option>
+                <option value="loc1">Location 1</option>
+                <option value="loc2">Location 2</option>
+            </select>         
             
             <label>Start Date</label>
             

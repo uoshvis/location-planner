@@ -24,7 +24,7 @@ function Modal(props) {
                   <h2>Update Event</h2>
                   <UpdateEventForm
                     currentEvent={props.currentEvent}
-                    updateEvent={props.updateEvent}
+                    handleUpdateEvent={props.handleUpdateEvent}
                     deleteEvent={props.deleteEvent}
                     handleCloseModal={props.handleCloseModal}
                   />

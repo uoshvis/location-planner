@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import { Calendar, Views, momentLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
-import initialEventsLoc1 from './events_loc1';
-import initialEventsLoc2 from './events_loc2';
+
 
 import './App.css';
 import Modal from './Modal';
+
+import { getEvent, getEvents, getEventsbyLocation, createEvent, updateEvent, deleteEvent } from './fakeAPI/api';
 
 
 require('moment/locale/lt.js')
@@ -16,28 +17,40 @@ const localizer = momentLocalizer(moment)
 
 function App() {
 
-  const initialEventState = { id: null, tile: '', start: '', end: '' }
+  const initialEventState = { id: null, location: '', title: '', start: '', end: '' }
+  const [location, setLocation] = useState('all')
+  const [events, setEvents] = useState([])
 
-  const [events, setEvents] = useState([...initialEventsLoc1, ...initialEventsLoc2])
+  React.useEffect(() => {
+    
+    const doGetEvents = async () => {
+      try {
+        const result = await getEventsbyLocation(location)
+        setEvents(result)
+      } catch(error) {
+        console.log(error)
+      }
+    }    
+    doGetEvents()
+  }, [location])
+
   const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
   const [updateMode, setUpdateMode] = useState(false)
-
-  const [location, setLocation] = useState('all')
-
 
   const handleSelectSlot = ({ start }) => {    
     setShowModal(true)
     setUpdateMode(false)
     const newStart = moment(start).add(Number(8), 'h').toDate()
     const newEnd = moment(newStart).add(Number(30), 'm').toDate()
-    setCurrentEvent({...currentEvent, start: newStart, end: newEnd})
+    const defaultLocation = location === 'all' ? '' : location
+    setCurrentEvent({...currentEvent, location: defaultLocation, start: newStart, end: newEnd})
   }
 
-  const handeleSelectEvent = ({ id, title, start, end }) => {    
+  const handeleSelectEvent = ({ id, location, title, start, end }) => {    
     setShowModal(true)
     setUpdateMode(true)
-    setCurrentEvent({id: id, title: title, start: start, end: end})
+    setCurrentEvent({id: id, location: location, title: title, start: start, end: end})
   }
 
   const handleCloseModal = () => {
@@ -46,14 +59,25 @@ function App() {
     setCurrentEvent(initialEventState)
   }
 
-  const addEvent = (event) => {
+  const addEvent = async (event) => {
     event.id = Date.now()
 
-    setEvents([...events, event])
+    try {
+      await createEvent(event)
+    } catch (error) {
+      console.log(error)
+    }
+
     handleCloseModal()
   }
 
-  const updateEvent = (id, updatedEvent) => {
+  const handleUpdateEvent = (e, id, updatedEvent) => {
+    e.preventDefault()
+    // Data validation here OR inside API
+    if (!updatedEvent.title || !updatedEvent.start || !updatedEvent.end) {
+      alert('No title/start/end value')
+      return 
+    }
     setEvents(events.map((event) => (event.id === id ? updatedEvent : event)))
     handleCloseModal()
   }
@@ -64,24 +88,7 @@ function App() {
   }
 
   const handleLocation = (e) => {
-    const locValue = e.target.value
-
-    if (locValue === 'loc1')  {
-      setEvents(initialEventsLoc1)
-      setLocation('loc1')
-      
-
-    }
-    else if (locValue === 'loc2') {
-      setLocation('loc2')
-      setEvents(initialEventsLoc2)
-    }
-
-    else if (locValue ==='all') {
-      setLocation('all')
-      setEvents([ ...initialEventsLoc1, ...initialEventsLoc2 ])
-    }    
-
+    setLocation(e.target.value)
   }
 
 
@@ -116,7 +123,7 @@ function App() {
             handleCloseModal={handleCloseModal}
             updateMode={updateMode}
             addEvent={addEvent}
-            updateEvent={updateEvent}
+            handleUpdateEvent={handleUpdateEvent}
             deleteEvent={deleteEvent}
             currentEvent={currentEvent}
           />
@@ -145,3 +152,6 @@ export default App;
 //   </button>
 //   )
 // }
+
+
+// ToDo data fetching api mock  - useEffect

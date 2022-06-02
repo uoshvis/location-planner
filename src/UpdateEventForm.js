@@ -29,16 +29,25 @@ const UpdateEventForm = props => {
     }
 
     const handleSubmit = e => {
-        e.preventDefault()
-        if (!event.title || !event.start || !event.end) {
-            alert('No title/start/end value')
-            return 
-        }
-        props.updateEvent(event.id, event)
+
+        // Moved to parent
+
+        // e.preventDefault()
+        // if (!event.title || !event.start || !event.end) {
+        //     alert('No title/start/end value')
+        //     return 
+        // }
+        props.handleUpdateEvent(e, event.id, event)
     }
 
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
+            <label htmlFor="location-select">Location</label>
+            <select name="location" id="location-select" value={event.location} onChange={handleInputChange}>
+                <option value="loc1">Location 1</option>
+                <option value="loc2">Location 2</option>
+            </select>
+
             <label>Title</label>
             <input
                 type="text"

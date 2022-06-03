@@ -42,7 +42,7 @@ const AddEventForm = props => {
             alert('No title/start/end value')
             return 
         }
-        props.addEvent(event)
+        props.onCreateEvent(event)
     }
 
     return (

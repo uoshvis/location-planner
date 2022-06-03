@@ -37,7 +37,7 @@ const UpdateEventForm = props => {
         //     alert('No title/start/end value')
         //     return 
         // }
-        props.handleUpdateEvent(e, event.id, event)
+        props.onUpdateEvent(e, event.id, event)
     }
 
     return (

@@ -13,7 +13,7 @@ function Modal(props) {
             <ReactModal
               isOpen={props.showModal}
               contentLabel={'Calendar form'}
-              onRequestClose={props.handleCloseModal}
+              onRequestClose={props.onCloseModal}
               className="Modal"
               overlayClassName="Overlay"
               parentSelector={() => document.querySelector('.App')}
@@ -24,9 +24,9 @@ function Modal(props) {
                   <h2>Update Event</h2>
                   <UpdateEventForm
                     currentEvent={props.currentEvent}
-                    handleUpdateEvent={props.handleUpdateEvent}
-                    deleteEvent={props.deleteEvent}
-                    handleCloseModal={props.handleCloseModal}
+                    onUpdateEvent={props.onUpdateEvent}
+                    onDeleteEvent={props.onDeleteEvent}
+                    onCloseModal={props.onCloseModal}
                   />
                 </Fragment>
                 ) : (
@@ -34,7 +34,7 @@ function Modal(props) {
                     <h2>Add Event</h2>
                     <AddEventForm
                       currentEvent={props.currentEvent}
-                      addEvent={props.addEvent}
+                      onCreateEvent={props.onCreateEvent}
                   />
                   </Fragment>
                 )}
@@ -42,7 +42,7 @@ function Modal(props) {
             </div>
 
 
-            <button id='btn-close' onClick={props.handleCloseModal}>X</button>
+            <button id='btn-close' onClick={props.onCloseModal}>X</button>
 
             </ReactModal>            
         </div>

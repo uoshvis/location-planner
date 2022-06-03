@@ -51,7 +51,7 @@ const getEventsByLocation = (eventLocation) =>
 const createEvent = (data) => 
     new Promise((resolve, reject) => {
 
-        if (!data.title || !data.location || !data.start || !data.end) {
+        if (!validateData(data)) {
             return setTimeout(
                 () => reject(new Error('Not all information provided')),
                 500
@@ -66,7 +66,7 @@ const createEvent = (data) =>
     })
 
 
-const updateEvent = (eventId, updatedEvent) => 
+const updateEvent = (eventId, data) => 
     new Promise((resolve, reject) => {
 
         const eventIndex = events.findIndex((obj => obj.id === eventId));
@@ -78,14 +78,14 @@ const updateEvent = (eventId, updatedEvent) =>
             )
         }
 
-        if (!updatedEvent.title || !updatedEvent.location || !updatedEvent.start || !updatedEvent.end) {
+        if (!validateData(data)) {
             return setTimeout(
                 () => reject(new Error('Not all information provided')),
                 500
             )            
         }
 
-        events[eventIndex] = { ...events[eventIndex], ...updatedEvent}
+        events[eventIndex] = { ...events[eventIndex], ...data}
         
         return setTimeout(() => resolve(true), 500)
     
@@ -108,6 +108,13 @@ const deleteEvent = (eventId) =>
         return setTimeout(() => resolve(true), 500);
     })
 
+
+// Helper
+
+const validateData = (data) => {
+    const dataIsValid = data.title && data.location && data.start && data.end
+    return dataIsValid
+}
 
 export  { getEventsByLocation, createEvent, updateEvent, deleteEvent }
 

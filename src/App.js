@@ -6,8 +6,7 @@ import moment from 'moment'
 
 import './App.css';
 import Modal from './Modal';
-
-import { getEvent, getEvents, getEventsbyLocation, createEvent, updateEvent, deleteEvent } from './fakeAPI/api';
+import { getEventsByLocation, createEvent, updateEvent, deleteEvent } from './fakeAPI/api';
 
 
 require('moment/locale/lt.js')
@@ -21,36 +20,49 @@ function App() {
   const [location, setLocation] = useState('all')
   const [events, setEvents] = useState([])
 
-  React.useEffect(() => {
     
-    const doGetEvents = async () => {
-      try {
-        const result = await getEventsbyLocation(location)
-        setEvents(result)
-      } catch(error) {
-        console.log(error)
-      }
-    }    
-    doGetEvents()
-  }, [location])
+  const doGetEvents = React.useCallback(async () => {
+    try {
+      const result = await getEventsByLocation(location)
+      setEvents(result)
+    } catch(error) {
+      console.log(error)
+    }
+  }, [location] )
+    
+  React.useEffect(() => {
+    doGetEvents() 
+  }, [doGetEvents])
+ 
+  const refetchEvents = async () => {
+    await doGetEvents()
+  }
 
   const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
   const [updateMode, setUpdateMode] = useState(false)
 
+
   const handleSelectSlot = ({ start }) => {    
     setShowModal(true)
     setUpdateMode(false)
+
     const newStart = moment(start).add(Number(8), 'h').toDate()
     const newEnd = moment(newStart).add(Number(30), 'm').toDate()
     const defaultLocation = location === 'all' ? '' : location
-    setCurrentEvent({...currentEvent, location: defaultLocation, start: newStart, end: newEnd})
+    
+    setCurrentEvent({
+      ...currentEvent, 
+      location: defaultLocation, start: newStart, end: newEnd
+    })
   }
 
   const handeleSelectEvent = ({ id, location, title, start, end }) => {    
     setShowModal(true)
     setUpdateMode(true)
-    setCurrentEvent({id: id, location: location, title: title, start: start, end: end})
+    setCurrentEvent({
+      id: id, location: location, title: title, start: start, end: end
+    })
   }
 
   const handleCloseModal = () => {
@@ -59,31 +71,41 @@ function App() {
     setCurrentEvent(initialEventState)
   }
 
-  const addEvent = async (event) => {
-    event.id = Date.now()
+  const handleCreateEvent = async (event) => {
 
     try {
       await createEvent(event)
+      await refetchEvents()
     } catch (error) {
       console.log(error)
     }
-
     handleCloseModal()
   }
 
-  const handleUpdateEvent = (e, id, updatedEvent) => {
+  const handleUpdateEvent = async (e, id, updatedEvent) => {
     e.preventDefault()
-    // Data validation here OR inside API
+
+    // TODO Data validation here OR inside API
     if (!updatedEvent.title || !updatedEvent.start || !updatedEvent.end) {
       alert('No title/start/end value')
       return 
+    }    
+    try {
+      await updateEvent(id, updatedEvent)
+      await refetchEvents()
+    } catch (error) {
+      console.log(error)
     }
-    setEvents(events.map((event) => (event.id === id ? updatedEvent : event)))
     handleCloseModal()
   }
   
-  const deleteEvent = id => {
-    setEvents(events.filter(event => event.id !== id))
+  const handleDeleteEvent = async (id) => {
+    try {
+      await deleteEvent(id)
+      await refetchEvents()
+    } catch (error) {
+      console.log(error)
+    }
     handleCloseModal()
   }
 
@@ -91,6 +113,7 @@ function App() {
     setLocation(e.target.value)
   }
 
+// TODO Add location btn Component
 
   return (
     <div className="App">
@@ -120,11 +143,11 @@ function App() {
 
           <Modal
             showModal={showModal}
-            handleCloseModal={handleCloseModal}
+            onCloseModal={handleCloseModal}
             updateMode={updateMode}
-            addEvent={addEvent}
-            handleUpdateEvent={handleUpdateEvent}
-            deleteEvent={deleteEvent}
+            onCreateEvent={handleCreateEvent}
+            onUpdateEvent={handleUpdateEvent}
+            onDeleteEvent={handleDeleteEvent}
             currentEvent={currentEvent}
           />
         } 
@@ -134,24 +157,3 @@ function App() {
 
 
 export default App;
-
-
-// TODO Add location btn Component
-
-// TODO Update events by location 
-
-// TODO Location field in event
-
-// TODO New event by location
-
-// function Button() {
-
-//   return (
-//     <button className={`btn-location btn-${location}`} value={'loc1'} onClick={(e) => handleLocation(e)}>
-//     Location 1
-//   </button>
-//   )
-// }
-
-
-// ToDo data fetching api mock  - useEffect

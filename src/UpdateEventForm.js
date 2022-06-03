@@ -31,7 +31,7 @@ const UpdateEventForm = props => {
     const handleSubmit = e => {
         e.preventDefault()
 
-        props.onUpdateEvent(event.id, event)
+        props.onUpdateEvent(event)
     }
 
     return (

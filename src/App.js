@@ -82,10 +82,10 @@ function App() {
     handleCloseModal()
   }
 
-  const handleUpdateEvent = async (id, updatedEvent) => {
+  const handleUpdateEvent = async (updatedEvent) => {
   
     try {
-      await updateEvent(id, updatedEvent)
+      await updateEvent(updatedEvent.id, updatedEvent)
       await refetchEvents()
     } catch (error) {
       console.log(error)

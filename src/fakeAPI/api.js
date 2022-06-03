@@ -22,7 +22,7 @@ const events =  require('./mockEvents') ;
 //         if (!event) {
 //             return setTimeout(
 //                 () => reject(new Error('Event not found')),
-//                 250
+//                 500
 //             )
 //         }
 //         setTimeout(() => resolve(event), 500)
@@ -41,7 +41,7 @@ const getEventsByLocation = (eventLocation) =>
         if (!eventsByLocation) {
             return setTimeout(
                 () => reject(new Error('Events by location not found')),
-                250
+                500
             )
         }
         setTimeout(() => resolve(eventsByLocation), 500)
@@ -50,10 +50,11 @@ const getEventsByLocation = (eventLocation) =>
 
 const createEvent = (data) => 
     new Promise((resolve, reject) => {
+
         if (!data.title || !data.location || !data.start || !data.end) {
             return setTimeout(
                 () => reject(new Error('Not all information provided')),
-                250
+                500
             )            
         }
         const id = uuidv4()
@@ -76,6 +77,14 @@ const updateEvent = (eventId, updatedEvent) =>
                 500
             )
         }
+
+        if (!updatedEvent.title || !updatedEvent.location || !updatedEvent.start || !updatedEvent.end) {
+            return setTimeout(
+                () => reject(new Error('Not all information provided')),
+                500
+            )            
+        }
+
         events[eventIndex] = { ...events[eventIndex], ...updatedEvent}
         
         return setTimeout(() => resolve(true), 500)
@@ -90,7 +99,7 @@ const deleteEvent = (eventId) =>
         if(eventIndex === -1) {
             return setTimeout(
                 () => reject(new Error('User not found')),
-                250
+                500
             )
         }
 

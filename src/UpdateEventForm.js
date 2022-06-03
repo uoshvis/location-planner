@@ -29,15 +29,9 @@ const UpdateEventForm = props => {
     }
 
     const handleSubmit = e => {
+        e.preventDefault()
 
-        // Moved to parent
-
-        // e.preventDefault()
-        // if (!event.title || !event.start || !event.end) {
-        //     alert('No title/start/end value')
-        //     return 
-        // }
-        props.onUpdateEvent(e, event.id, event)
+        props.onUpdateEvent(event.id, event)
     }
 
     return (
@@ -79,7 +73,7 @@ const UpdateEventForm = props => {
                 dateFormat="Pp"
             />
 
-            <button  type="button" onClick={() => props.deleteEvent(event.id)}>Delete</button>
+            <button  type="button" onClick={() => props.onDeleteEvent(event.id)}>Delete</button>
 
             <button type="submit">Update</button>
 

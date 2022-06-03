@@ -82,14 +82,8 @@ function App() {
     handleCloseModal()
   }
 
-  const handleUpdateEvent = async (e, id, updatedEvent) => {
-    e.preventDefault()
-
-    // TODO Data validation here OR inside API
-    if (!updatedEvent.title || !updatedEvent.start || !updatedEvent.end) {
-      alert('No title/start/end value')
-      return 
-    }    
+  const handleUpdateEvent = async (id, updatedEvent) => {
+  
     try {
       await updateEvent(id, updatedEvent)
       await refetchEvents()

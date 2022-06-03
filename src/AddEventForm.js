@@ -36,12 +36,8 @@ const AddEventForm = props => {
     }
 
     const handleSubmit = e => {
-        // TODO move to parent
         e.preventDefault()
-        if (!event.title || !event.start || !event.end) {
-            alert('No title/start/end value')
-            return 
-        }
+
         props.onCreateEvent(event)
     }
 

@@ -6,6 +6,7 @@ import moment from 'moment'
 
 import './App.css';
 import Modal from './Modal';
+import LocationBtn from './LocationBtn';
 import { getEventsByLocation, createEvent, updateEvent, deleteEvent } from './fakeAPI/api';
 
 
@@ -103,25 +104,18 @@ function App() {
     handleCloseModal()
   }
 
-  const handleLocation = (e) => {
+  const handleLocationChange = (e) => {
     setLocation(e.target.value)
   }
-
-// TODO Add location btn Component
 
   return (
     <div className="App">
       <h1>Patient Planner</h1>
       
-      <button className={location ==='all' ? `btn-location btn-location-normal btn-location-active` : `btn-location btn-location-normal` } value={'all'} onClick={(e) => handleLocation(e)}>
-        All locations
-      </button>   
-      <button className={location ==='loc1' ? `btn-location btn-location-normal btn-location-active` : `btn-location btn-location-normal` } value={'loc1'} onClick={(e) => handleLocation(e)}>
-        Location 1
-      </button>
-      <button className={location ==='loc2' ? `btn-location btn-location-normal btn-location-active` : `btn-location btn-location-normal` } value={'loc2'} onClick={(e) => handleLocation(e)}>
-        Location 2
-      </button>
+        <LocationBtn
+          location={location}
+          handleLocationChange={handleLocationChange}
+        />
 
         <Calendar
           selectable

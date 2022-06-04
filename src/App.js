@@ -5,8 +5,8 @@ import moment from 'moment'
 
 
 import './App.css';
-import Modal from './Modal';
-import LocationBtn from './LocationBtn';
+import Modal from './components/Modal';
+import LocationBtn from './components/LocationBtn';
 import { getEventsByLocation, createEvent, updateEvent, deleteEvent } from './fakeAPI/api';
 
 

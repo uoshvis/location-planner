@@ -2,7 +2,6 @@ body {
   margin: 0;
 }
 
-
 .btn-location {
   border: none;
   outline: none;
@@ -25,3 +24,6 @@ body {
   color: white;
 }
 
+.loading {
+  filter: blur(2px);
+}

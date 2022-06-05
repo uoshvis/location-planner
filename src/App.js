@@ -20,13 +20,17 @@ function App() {
   const initialEventState = { id: null, location: '', title: '', start: '', end: '' }
   const [location, setLocation] = useState('all')
   const [events, setEvents] = useState([])
+  const [isLoading, setIsLoading] = useState(false);
 
     
   const doGetEvents = React.useCallback(async () => {
     try {
+      setIsLoading(true)
       const result = await getEventsByLocation(location)
       setEvents(result)
+      setIsLoading(false)
     } catch(error) {
+      setIsLoading(false)
       console.log(error)
     }
   }, [location] )
@@ -116,17 +120,18 @@ function App() {
           location={location}
           handleLocationChange={handleLocationChange}
         />
-
-        <Calendar
-          selectable
-          localizer={localizer}
-          style={{ height: 800 }}
-          events={events}
-          defaultView={Views.MONTH}
-          onSelectSlot={handleSelectSlot}
-          onSelectEvent={handeleSelectEvent}
-        />
-
+        
+          <Calendar
+            selectable
+            localizer={localizer}
+            style={{ height: 800 }}
+            className={isLoading ? 'loading' : ''}
+            events={events}
+            defaultView={Views.MONTH}
+            onSelectSlot={handleSelectSlot}
+            onSelectEvent={handeleSelectEvent}
+          />
+          
         {showModal &&
 
           <Modal

@@ -41,17 +41,20 @@ function App() {
     doGetEvents()
   }, [doGetEvents])
  
-  React.useEffect(() => {
-    const spinnerColor = window.getComputedStyle(spinnerEl.current).getPropertyValue("color")
-    const spinnerWidth = window.getComputedStyle(spinnerEl.current).getPropertyValue("width")
-    const spinnerHeight = window.getComputedStyle(spinnerEl.current).getPropertyValue("height")
+  React.useEffect(() =>  {
+    if (Object.keys(spinnerStyle).length === 0 && isLoading) {
+      const spinnerColor = window.getComputedStyle(spinnerEl.current).getPropertyValue("color")
+      const spinnerWidth = window.getComputedStyle(spinnerEl.current).getPropertyValue("width")
+      const spinnerHeight = window.getComputedStyle(spinnerEl.current).getPropertyValue("height")
 
-    setSpinnerStyle({
-      color: spinnerColor,
-      width: spinnerWidth,
-      height: spinnerHeight
-    })
-  }, [])
+      setSpinnerStyle({
+        color: spinnerColor,
+        width: spinnerWidth,
+        height: spinnerHeight
+      })
+
+    }
+  }, [spinnerStyle, isLoading])
 
   const refetchEvents = async () => {
     await doGetEvents()
@@ -134,15 +137,20 @@ function App() {
           location={location}
           handleLocationChange={handleLocationChange}
         />
-        <div className='tail-spin-wrapper' ref={spinnerEl}>
-        <TailSpin
-            height={spinnerStyle.height}
-            width={spinnerStyle.width}
-            color={spinnerStyle.color}
-            visible={isLoading}
-            ariaLabel='loading'
-          />
-        </div>
+        {
+          isLoading &&
+ 
+          <div className='tail-spin-wrapper' ref={spinnerEl}>
+            <TailSpin
+                height={spinnerStyle.height}
+                width={spinnerStyle.width}
+                color={spinnerStyle.color}
+                visible={isLoading}
+                ariaLabel='loading'
+              />
+          </div>
+
+        }
 
         <Calendar
           selectable

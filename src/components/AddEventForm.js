@@ -52,7 +52,7 @@ const AddEventForm = props => {
             
             <label htmlFor="location-select">Location</label>
             <select name="location" id="location-select" value={event.location} onChange={handleInputChange}>                
-                <option value="" selected hidden >Please Choose...</option>
+                <option value="" defaultValue hidden >Please Choose...</option>
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
             </select>         

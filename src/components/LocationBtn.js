@@ -23,6 +23,7 @@ function LocationBtn ({location, handleLocationChange}) {
     const btnItems = btnData.map(({value, text}) =>
       <button
         className={location === value ? btnClassNames.active : btnClassNames.normal }
+        key={value}
         value={value}
         onClick={(e) => handleLocationChange(e)}>
         {text}

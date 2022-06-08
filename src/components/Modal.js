@@ -1,20 +1,26 @@
 import ReactModal from "react-modal";
 import AddEventForm from "./AddEventForm";
 import UpdateEventForm from "./UpdateEventForm";
-import {Fragment} from 'react'
+import { Fragment } from 'react'
 
 ReactModal.setAppElement('#root')
 
 
 function Modal(props) {
 
+  const modalClassNames = {
+    normal: 'modal-component',
+    loading: 'modal-component loading',
+    overlay: 'overlay'
+  }
+
   return (
             <ReactModal
               isOpen={props.showModal}
               contentLabel={'Calendar form'}
               onRequestClose={props.onCloseModal}
-              className={props.isLoading ? "modal-component loading" : 'modal-component'}
-              overlayClassName="overlay"
+              className={props.isLoading ? modalClassNames.loading : modalClassNames.normal}
+              overlayClassName={modalClassNames.overlay}
               parentSelector={() => document.querySelector('.App')}
             >
             <div>

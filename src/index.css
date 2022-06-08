@@ -25,5 +25,5 @@ body {
 }
 
 .loading {
-  filter: blur(2px);
+  filter: blur(1px);
 }

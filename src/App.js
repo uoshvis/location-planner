@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { Calendar, Views, momentLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { TailSpin } from 'react-loader-spinner';
 
 import './App.css';
 import Modal from './components/Modal';
@@ -120,22 +121,33 @@ function App() {
           location={location}
           handleLocationChange={handleLocationChange}
         />
-        
-          <Calendar
-            selectable
-            localizer={localizer}
-            style={{ height: 800 }}
-            className={isLoading ? 'loading' : ''}
-            events={events}
-            defaultView={Views.MONTH}
-            onSelectSlot={handleSelectSlot}
-            onSelectEvent={handeleSelectEvent}
+
+        <TailSpin
+            height="100"
+            width="100"
+            color='grey'
+            ariaLabel='loading'
+            visible={isLoading}
+            wrapperClass='tail-spin-wrapper'
           />
+
+        <Calendar
+          selectable
+          localizer={localizer}
+          style={{ height: 800 }}
+          className={isLoading ? 'loading' : ''}
+          events={events}
+          defaultView={Views.MONTH}
+          onSelectSlot={handleSelectSlot}
+          onSelectEvent={handeleSelectEvent}
+        />
           
         {showModal &&
 
+
           <Modal
             showModal={showModal}
+            isLoading={isLoading}
             onCloseModal={handleCloseModal}
             updateMode={updateMode}
             onCreateEvent={handleCreateEvent}
@@ -143,7 +155,7 @@ function App() {
             onDeleteEvent={handleDeleteEvent}
             currentEvent={currentEvent}
           />
-        } 
+         } 
     </div>
   )
 }

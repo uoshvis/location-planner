@@ -9,13 +9,12 @@ ReactModal.setAppElement('#root')
 function Modal(props) {
 
   return (
-        <div>
             <ReactModal
               isOpen={props.showModal}
               contentLabel={'Calendar form'}
               onRequestClose={props.onCloseModal}
-              className="Modal"
-              overlayClassName="Overlay"
+              className={props.isLoading ? "modal-component loading" : 'modal-component'}
+              overlayClassName="overlay"
               parentSelector={() => document.querySelector('.App')}
             >
             <div>
@@ -45,7 +44,6 @@ function Modal(props) {
             <button id='btn-close' onClick={props.onCloseModal}>X</button>
 
             </ReactModal>            
-        </div>
 
     )    
     

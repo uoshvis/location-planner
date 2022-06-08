@@ -73,9 +73,9 @@ const UpdateEventForm = props => {
                 dateFormat="Pp"
             />
 
-            <button  type="button" onClick={() => props.onDeleteEvent(event.id)}>Delete</button>
+            <button  id= 'btn-delete' type="button" onClick={() => props.onDeleteEvent(event.id)}>Delete</button>
 
-            <button type="submit">Update</button>
+            <button id='btn-submit' type="submit">Update</button>
 
         </form>
     )

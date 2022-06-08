@@ -33,6 +33,7 @@
 #btn-close {
   position: absolute;
   background: rgb(99, 97, 97);
+  border-radius: 5px;
   color: white;
   top: 0px;
   right: 0px;

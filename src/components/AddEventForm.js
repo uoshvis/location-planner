@@ -92,7 +92,7 @@ const AddEventForm = props => {
                 </select>
             </div>
 
-            <button type="submit">Add</button>
+            <button id='btn-submit' type="submit">Add</button>
         </form>
     )
     }

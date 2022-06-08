@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Calendar, Views, momentLocalizer} from 'react-big-calendar'
+import React, { useState, useRef } from 'react';
+import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -22,8 +22,9 @@ function App() {
   const [location, setLocation] = useState('all')
   const [events, setEvents] = useState([])
   const [isLoading, setIsLoading] = useState(false);
-
-    
+  const spinnerEl = useRef(null);
+  const [spinnerStyle, setSpinnerStyle] = useState({})  
+  
   const doGetEvents = React.useCallback(async () => {
     try {
       setIsLoading(true)
@@ -37,9 +38,21 @@ function App() {
   }, [location] )
     
   React.useEffect(() => {
-    doGetEvents() 
+    doGetEvents()
   }, [doGetEvents])
  
+  React.useEffect(() => {
+    const spinnerColor = window.getComputedStyle(spinnerEl.current).getPropertyValue("color")
+    const spinnerWidth = window.getComputedStyle(spinnerEl.current).getPropertyValue("width")
+    const spinnerHeight = window.getComputedStyle(spinnerEl.current).getPropertyValue("height")
+
+    setSpinnerStyle({
+      color: spinnerColor,
+      width: spinnerWidth,
+      height: spinnerHeight
+    })
+  }, [])
+
   const refetchEvents = async () => {
     await doGetEvents()
   }
@@ -121,15 +134,15 @@ function App() {
           location={location}
           handleLocationChange={handleLocationChange}
         />
-
+        <div className='tail-spin-wrapper' ref={spinnerEl}>
         <TailSpin
-            height="100"
-            width="100"
-            color='grey'
-            ariaLabel='loading'
+            height={spinnerStyle.height}
+            width={spinnerStyle.width}
+            color={spinnerStyle.color}
             visible={isLoading}
-            wrapperClass='tail-spin-wrapper'
+            ariaLabel='loading'
           />
+        </div>
 
         <Calendar
           selectable
@@ -143,7 +156,6 @@ function App() {
         />
           
         {showModal &&
-
 
           <Modal
             showModal={showModal}

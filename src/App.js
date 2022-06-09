@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
@@ -22,9 +22,12 @@ function App() {
   const [location, setLocation] = useState('all')
   const [events, setEvents] = useState([])
   const [isLoading, setIsLoading] = useState(false);
-  const [spinnerStyle, setSpinnerStyle] = useState({})  
+  const [spinnerStyle, setSpinnerStyle] = useState({})
+  const [currentEvent, setCurrentEvent] = useState(initialEventState)
+  const [showModal, setShowModal] = useState(false)
+  const [updateMode, setUpdateMode] = useState(false)  
   
-  const doGetEvents = React.useCallback(async () => {
+  const doGetEvents = useCallback(async () => {
     try {
       setIsLoading(true)
       const result = await getEventsByLocation(location)
@@ -44,6 +47,9 @@ function App() {
     await doGetEvents()
   }
 
+
+  // get spinner style from parent div css and pass to TailSpin Component
+
   const spinnerEl = useRef(null);
 
   useEffect(() =>  {
@@ -59,12 +65,7 @@ function App() {
       })
 
     }
-  }, [spinnerStyle, isLoading])
-
-  const [currentEvent, setCurrentEvent] = useState(initialEventState)
-  const [showModal, setShowModal] = useState(false)
-  const [updateMode, setUpdateMode] = useState(false)
-
+  }, [isLoading, spinnerStyle])
 
   const handleSelectSlot = ({ start }) => {    
     setShowModal(true)

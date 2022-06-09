@@ -36,49 +36,67 @@ const UpdateEventForm = props => {
 
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
+            <label htmlFor='title'>Title</label>
+            <input
+                type="text"
+                name="title"
+                id='title'
+                value={event.title || ''}
+                onChange={handleInputChange} />
+
+
             <label htmlFor="location-select">Location</label>
             <select name="location" id="location-select" value={event.location} onChange={handleInputChange}>
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
             </select>
 
-            <label>Title</label>
-            <input
-                type="text"
-                name="title"
-                value={event.title}
-                onChange={handleInputChange} />
             
-            <label>Start Date</label>
-            
-            <DatePicker
-                selected={event.start}
-                onChange={handleStartChange}
-                locale="lt"
-                showTimeSelect
-                timeFormat="p"
-                timeIntervals={30}
-                dateFormat="Pp"
-            />            
-            
-            <label>End Date</label>
-            
-            <DatePicker
-                selected={event.end}
-                onChange={handleEndChange}
-                locale="lt"
-                showTimeSelect
-                timeFormat="p"
-                timeIntervals={30}
-                dateFormat="Pp"
-            />
+            <div>
 
-            <button  id= 'btn-delete' type="button" onClick={() => props.onDeleteEvent(event.id)}>Delete</button>
+                <label htmlFor='start'>Start Date</label>
+
+                <DatePicker
+                    selected={event.start}
+                    onChange={handleStartChange}
+                    locale="lt"
+                    showTimeSelect
+                    timeFormat="p"
+                    timeIntervals={30}
+                    dateFormat="Pp"
+                    id='start'
+                />            
+
+            </div>           
+            
+            <div>   
+            
+                <label htmlFor='end'>End Date</label>
+                
+                <DatePicker
+                    selected={event.end}
+                    onChange={handleEndChange}
+                    locale="lt"
+                    showTimeSelect
+                    timeFormat="p"
+                    timeIntervals={30}
+                    dateFormat="Pp"
+                    id='end'
+                />
+            </div>
+
+            <button  
+                id='btn-delete'
+                type="button"
+                onClick={() => props.onDeleteEvent(event.id)}
+            >
+            Delete
+            </button>
 
             <button id='btn-submit' type="submit">Update</button>
 
         </form>
-    )
+    )   
     }
 
 export default UpdateEventForm

@@ -43,54 +43,66 @@ const AddEventForm = props => {
 
     return (
         <form onSubmit={(e) => handleSubmit(e)}>
-            <label>Title</label>
+            <label htmlFor='title'>Title</label>
             <input
                 type="text"
                 name="title"
+                id='title'
                 value={event.title || ''}
                 onChange={handleInputChange} />
             
+
             <label htmlFor="location-select">Location</label>
             <select name="location" id="location-select" value={event.location} onChange={handleInputChange}>                
                 <option value="" defaultValue hidden >Please Choose...</option>
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
             </select>         
-            
-            <label>Start Date</label>
-            
-            <DatePicker
-                selected={event.start}
-                onChange={handleStartChange}
-                locale="lt"
-                showTimeSelect
-                timeFormat="p"
-                timeIntervals={30}
-                dateFormat="Pp"
-            />            
-            
-            <label>End Date</label>
-            
-            <DatePicker
-                selected={event.end}
-                onChange={handleEndChange}
-                locale="lt"
-                showTimeSelect
-                timeFormat="p"
-                timeIntervals={30}
-                dateFormat="Pp"
-            />
 
+            
             <div>
-                Set duration:
+
+                <label htmlFor='start'>Start Date</label>
+
+                <DatePicker
+                    selected={event.start}
+                    onChange={handleStartChange}
+                    locale="lt"
+                    showTimeSelect
+                    timeFormat="p"
+                    timeIntervals={30}
+                    dateFormat="Pp"
+                    id='start'
+                />            
+
+            </div>
+            
+            <div>   
+            
+                <label htmlFor='end'>End Date</label>
+                
+                <DatePicker
+                    selected={event.end}
+                    onChange={handleEndChange}
+                    locale="lt"
+                    showTimeSelect
+                    timeFormat="p"
+                    timeIntervals={30}
+                    dateFormat="Pp"
+                    id='end'
+                />
+            </div>
+
+            <label htmlFor='duration'>Duration</label>
                 <select
-                onChange={handleDurationChange}>
+                onChange={handleDurationChange}
+                name='duration'
+                id='duration'>
                     <option value="30">30 min</option>
                     <option value="60">1 h</option>
                     <option value="90">1 h 30 min</option>
                     <option value="120">2 h</option>
                 </select>
-            </div>
 
             <button id='btn-submit' type="submit">Add</button>
         </form>

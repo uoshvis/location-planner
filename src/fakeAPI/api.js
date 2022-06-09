@@ -57,8 +57,8 @@ const createEvent = (data) =>
                 500
             )            
         }
-        const id = uuidv4()
-        const newEvent = {id, ...data}
+        const uuid = uuidv4()
+        const newEvent = {...data, id: uuid}
 
         events.push(newEvent)
 

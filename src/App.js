@@ -22,7 +22,6 @@ function App() {
   const [location, setLocation] = useState('all')
   const [events, setEvents] = useState([])
   const [isLoading, setIsLoading] = useState(false);
-  const spinnerEl = useRef(null);
   const [spinnerStyle, setSpinnerStyle] = useState({})  
   
   const doGetEvents = React.useCallback(async () => {
@@ -40,7 +39,13 @@ function App() {
   useEffect(() => {
     doGetEvents()
   }, [doGetEvents])
- 
+
+  const refetchEvents = async () => {
+    await doGetEvents()
+  }
+
+  const spinnerEl = useRef(null);
+
   useEffect(() =>  {
     if (isLoading && Object.keys(spinnerStyle).length === 0) {
       const spinnerColor = window.getComputedStyle(spinnerEl.current).getPropertyValue("color")
@@ -55,10 +60,6 @@ function App() {
 
     }
   }, [spinnerStyle, isLoading])
-
-  const refetchEvents = async () => {
-    await doGetEvents()
-  }
 
   const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
@@ -182,5 +183,3 @@ function App() {
 
 
 export default App;
-
-// TODO let continue if not valid (let to fix)

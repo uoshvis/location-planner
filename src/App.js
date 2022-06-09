@@ -16,7 +16,7 @@ require('moment/locale/lt.js')
 const localizer = momentLocalizer(moment)
 
 
-function App() {
+function App() { 
 
   const initialEventState = { id: null, location: '', title: '', start: '', end: '' }
   const [location, setLocation] = useState('all')
@@ -26,26 +26,44 @@ function App() {
   const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
   const [updateMode, setUpdateMode] = useState(false)  
-  
-  const doGetEvents = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      const result = await getEventsByLocation(location)
-      setEvents(result)
-      setIsLoading(false)
-    } catch(error) {
-      setIsLoading(false)
-      alert(error)
-    }
-  }, [location] )
-    
-  useEffect(() => {
-    doGetEvents()
-  }, [doGetEvents])
 
-  const refetchEvents = async () => {
-    await doGetEvents()
-  }
+
+  // const doGetEvents = useCallback(async () => {
+  //   try {
+  //     setIsLoading(true)
+  //     const result = await getEventsByLocation(location)
+  //     setEvents(result)
+  //     setIsLoading(false)
+  //   } catch(error) {
+  //     setIsLoading(false)
+  //     alert(error)
+  //   }
+  // }, [location] )
+    
+  // useEffect(() => {
+  //   doGetEvents()
+  // }, [doGetEvents])
+
+  // const refetchEvents = async () => {
+  //   await doGetEvents()
+  // }
+
+  useEffect(() => {
+    const refetchEvents = async () => {
+      try {
+        setIsLoading(true)
+        const result = await getEventsByLocation(location)
+        setEvents(result)
+        setIsLoading(false)
+      } catch(error) {
+        setIsLoading(false)
+        alert(error)
+      }
+    };
+    refetchEvents()
+    
+  }, [location]);
+
 
 
   // get spinner style from parent div css and pass to TailSpin Component
@@ -96,10 +114,10 @@ function App() {
   }
 
   const handleCreateEvent = async (event) => {
-
+    
     try {
       await createEvent(event)
-      await refetchEvents()
+      // await refetchEvents()
       handleCloseModal()
     } catch (error) {
       alert(error)
@@ -110,7 +128,7 @@ function App() {
   
     try {
       await updateEvent(updatedEvent.id, updatedEvent)
-      await refetchEvents()
+      // await refetchEvents()
       handleCloseModal()
     } catch (error) {
       alert(error)
@@ -120,7 +138,7 @@ function App() {
   const handleDeleteEvent = async (id) => {
     try {
       await deleteEvent(id)
-      await refetchEvents()
+      // await refetchEvents()
       handleCloseModal()
     } catch (error) {
       alert(error)

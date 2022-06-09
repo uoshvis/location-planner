@@ -33,7 +33,7 @@ function App() {
       setIsLoading(false)
     } catch(error) {
       setIsLoading(false)
-      console.log(error)
+      alert(error)
     }
   }, [location] )
     
@@ -42,7 +42,7 @@ function App() {
   }, [doGetEvents])
  
   React.useEffect(() =>  {
-    if (Object.keys(spinnerStyle).length === 0 && isLoading) {
+    if (isLoading && Object.keys(spinnerStyle).length === 0) {
       const spinnerColor = window.getComputedStyle(spinnerEl.current).getPropertyValue("color")
       const spinnerWidth = window.getComputedStyle(spinnerEl.current).getPropertyValue("width")
       const spinnerHeight = window.getComputedStyle(spinnerEl.current).getPropertyValue("height")
@@ -98,10 +98,10 @@ function App() {
     try {
       await createEvent(event)
       await refetchEvents()
+      handleCloseModal()
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
-    handleCloseModal()
   }
 
   const handleUpdateEvent = async (updatedEvent) => {
@@ -109,20 +109,20 @@ function App() {
     try {
       await updateEvent(updatedEvent.id, updatedEvent)
       await refetchEvents()
+      handleCloseModal()
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
-    handleCloseModal()
   }
   
   const handleDeleteEvent = async (id) => {
     try {
       await deleteEvent(id)
       await refetchEvents()
+      handleCloseModal()
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
-    handleCloseModal()
   }
 
   const handleLocationChange = (e) => {

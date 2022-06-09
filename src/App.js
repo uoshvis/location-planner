@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
@@ -37,11 +37,11 @@ function App() {
     }
   }, [location] )
     
-  React.useEffect(() => {
+  useEffect(() => {
     doGetEvents()
   }, [doGetEvents])
  
-  React.useEffect(() =>  {
+  useEffect(() =>  {
     if (isLoading && Object.keys(spinnerStyle).length === 0) {
       const spinnerColor = window.getComputedStyle(spinnerEl.current).getPropertyValue("color")
       const spinnerWidth = window.getComputedStyle(spinnerEl.current).getPropertyValue("width")

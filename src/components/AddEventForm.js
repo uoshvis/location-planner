@@ -42,9 +42,10 @@ const AddEventForm = props => {
     }
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <label htmlFor='title'>Title</label>
+        <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
+            <label className='label' htmlFor='title'>Title</label>
             <input
+                className='input'
                 type="text"
                 name="title"
                 id='title'
@@ -52,8 +53,14 @@ const AddEventForm = props => {
                 onChange={handleInputChange} />
             
 
-            <label htmlFor="location-select">Location</label>
-            <select name="location" id="location-select" value={event.location} onChange={handleInputChange}>                
+            <label className='label' htmlFor="location-select">Location</label>
+            <select 
+                name="location"
+                id="location-select"
+                className='input'
+                value={event.location}
+                onChange={handleInputChange}
+            >                
                 <option value="" defaultValue hidden >Please Choose...</option>
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
@@ -62,9 +69,10 @@ const AddEventForm = props => {
             
             <div>
 
-                <label htmlFor='start'>Start Date</label>
+                <label className='label' htmlFor='start'>Start Date</label>
 
                 <DatePicker
+                    className='input'
                     selected={event.start}
                     onChange={handleStartChange}
                     locale="lt"
@@ -79,9 +87,10 @@ const AddEventForm = props => {
             
             <div>   
             
-                <label htmlFor='end'>End Date</label>
+                <label className='label' htmlFor='end'>End Date</label>
                 
                 <DatePicker
+                    className='input'
                     selected={event.end}
                     onChange={handleEndChange}
                     locale="lt"
@@ -93,9 +102,10 @@ const AddEventForm = props => {
                 />
             </div>
 
-            <label htmlFor='duration'>Duration</label>
-                <select
+            <label className='label' htmlFor='duration'>Duration</label>
+                <select                
                 onChange={handleDurationChange}
+                className='input'
                 name='duration'
                 id='duration'>
                     <option value="30">30 min</option>
@@ -104,7 +114,7 @@ const AddEventForm = props => {
                     <option value="120">2 h</option>
                 </select>
 
-            <button id='btn-submit' type="submit">Add</button>
+            <button id='btn_submit' className='btn' type="submit">Add</button>
         </form>
     )
     }

@@ -47,7 +47,13 @@ function Modal(props) {
             </div>
 
 
-            <button id='btn-close' onClick={props.onCloseModal}>X</button>
+            <button 
+              className='btn' 
+              id='btn_close'
+              onClick={props.onCloseModal}
+            >
+            <span>X</span>
+            </button>
 
             </ReactModal>            
 

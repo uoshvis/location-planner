@@ -1,8 +1,8 @@
 function LocationBtn ({location, handleLocationChange}) {
   
     const btnClassNames = {
-      normal: 'btn-location btn-location-normal',
-      active: 'btn-location btn-location-normal btn-location-active'
+      normal: 'btn btn_location_normal',
+      active: 'btn btn_location_normal btn_location_active'
     }
   
     const btnData = [

@@ -5,7 +5,6 @@ import moment from 'moment'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { TailSpin } from 'react-loader-spinner';
 
-import './App.css';
 import Modal from './components/Modal';
 import LocationBtn from './components/LocationBtn';
 import { getEventsByLocation, createEvent, updateEvent, deleteEvent } from './fakeAPI/api';
@@ -133,7 +132,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Patient Planner</h1>
+      <h1 className='headline-primary'>Location Planner</h1>
       
         <LocationBtn
           location={location}

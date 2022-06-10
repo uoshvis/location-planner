@@ -1,29 +1,118 @@
 body {
-  margin: 0;
+  margin: 100px;
 }
 
-.btn-location {
-  border: none;
-  outline: none;
-  padding: 12px 16px;
-  margin: 1px;
-  /* background-color: white; */
-  cursor: pointer;
+.App {
+  text-align: center;
+  height: 100vw;
+  padding: 20px;
+  background: #70c09b; /* fallback for old browsers */
+  background: linear-gradient(to right, #70c09b, #83bad4);
+  color: black;
 }
 
-.btn-location-normal {
-  background-color: white;
+.headline-primary {
+  font-size: 28px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  }
+
+.modal-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-width: 80%;
+  min-height: 70%;
+  top: 50%;
+  right: 50%;
+  position: absolute;
+  transform: translate(50%, -50%);
+  background: linear-gradient(to right, #707fc0, #d483b5);
+  z-index: 4;
+  border-radius: 5px;
 }
 
-.btn-location:hover {
-  background-color: #ddd;
+.overlay {
+  position: static;
 }
 
-.btn-location-active {
-  background-color: #666;
-  color: white;
+.tail-spin-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 5;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  color: red;
 }
 
 .loading {
   filter: blur(1px);
 }
+
+.btn {
+  border: 1px solid #f3ebeb;
+  border-radius: 5px;
+  outline: none;
+  padding: 12px 16px;
+  margin: 1px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.1s ease-in;
+}
+
+.btn:hover {
+  background-color: #ddd;  
+}
+
+.btn_location_normal {
+  background-color: white;
+}
+
+.btn_location_active {
+  background-color: #666;
+  color: white;
+}
+
+#btn_close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border-top-left-radius: 5px;
+  background-color: #666;
+  color: white;
+  padding: 5px 8px;
+  margin: 0;
+}
+
+#btn_close > span {
+  font-size: 15px;
+}
+
+#btn_delete {
+  float: left;
+}
+
+#btn_submit {
+  float: right;
+}
+
+.event-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  padding-left: 5px;
+  font-size: 24px;
+  }
+  
+.input {
+  border: none;
+  border-bottom: 1px solid #171212;
+  background-color: transparent;
+  font-size: 24px;
+  color: rgb(231, 231, 231)
+  }

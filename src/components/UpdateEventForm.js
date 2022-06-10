@@ -35,28 +35,34 @@ const UpdateEventForm = props => {
     }
 
     return (
-        <form onSubmit={(e) => handleSubmit(e)}>
-            <label htmlFor='title'>Title</label>
+        <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
+            <label className='label' htmlFor='title'>Title</label>
             <input
                 type="text"
                 name="title"
                 id='title'
+                className='input'
                 value={event.title || ''}
                 onChange={handleInputChange} />
 
 
-            <label htmlFor="location-select">Location</label>
-            <select name="location" id="location-select" value={event.location} onChange={handleInputChange}>
+            <label className='label' htmlFor="location-select">Location</label>
+            <select 
+                name="location"
+                id="location-select"
+                className='input' 
+                value={event.location}
+                onChange={handleInputChange}
+            >
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
             </select>
-
-            
             <div>
 
-                <label htmlFor='start'>Start Date</label>
+                <label className='label' htmlFor='start'>Start Date</label>
 
                 <DatePicker
+                    className='input'
                     selected={event.start}
                     onChange={handleStartChange}
                     locale="lt"
@@ -67,13 +73,15 @@ const UpdateEventForm = props => {
                     id='start'
                 />            
 
-            </div>           
+            </div>
+        
             
             <div>   
             
-                <label htmlFor='end'>End Date</label>
+                <label className='label' htmlFor='end'>End Date</label>
                 
                 <DatePicker
+                    className='input'
                     selected={event.end}
                     onChange={handleEndChange}
                     locale="lt"
@@ -85,15 +93,22 @@ const UpdateEventForm = props => {
                 />
             </div>
 
-            <button  
-                id='btn-delete'
+            <button
+                className='btn'  
+                id='btn_delete'
                 type="button"
                 onClick={() => props.onDeleteEvent(event.id)}
             >
             Delete
             </button>
 
-            <button id='btn-submit' type="submit">Update</button>
+            <button 
+                className='btn' 
+                id='btn_submit' 
+                type="submit"
+            >
+            Update
+            </button>
 
         </form>
     )   

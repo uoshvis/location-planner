@@ -9,10 +9,19 @@ registerLocale('lt', lt)
 
 const AddEventForm = props => {
     const [event, setEvent] = useState(props.currentEvent)
+    const [duration, setDurationState] = useState('30')   
+
 
     useEffect(() => {
         setEvent(props.currentEvent)
       }, [props])
+
+    useEffect(() => {
+        const startM = moment(event.start)
+        const endM = moment(event.end)   
+        const diff = moment.duration(endM.diff(startM)).asMinutes()
+        setDurationState(diff)
+      }, [event.start, event.end])
 
     const handleStartChange = start => {
         setEvent({...event, start:  start})
@@ -104,17 +113,19 @@ const AddEventForm = props => {
             </div>
 
             <label className='label' htmlFor='duration'>Duration</label>
-                <select                
-                onChange={handleDurationChange}
-                className='input'
-                name='duration'
-                id='duration'
-                >
-                    <option value="30">30 min</option>
-                    <option value="60">1 h</option>
-                    <option value="90">1 h 30 min</option>
-                    <option value="120">2 h</option>
-                </select>
+            <select
+            name='duration'
+            className='input'
+            id='duration'
+            onChange={handleDurationChange}
+            value={duration}
+            >
+                <option value="30">30 mine</option>
+                <option value="60">1 h</option>
+                <option value="90">1 h 30 min</option>
+                <option value="120">2 h</option>
+                <option value={duration}>{duration} min</option>
+            </select>
 
             <div className='add-btn-container'>
                 <button

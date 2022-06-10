@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import moment from 'moment'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
@@ -8,11 +9,20 @@ registerLocale('lt', lt)
 
 const UpdateEventForm = props => {
     
-    const [event, setEvent] = useState(props.currentEvent)   
+    const [event, setEvent] = useState(props.currentEvent)
+    const [duration, setDurationState] = useState('')   
 
     useEffect(() => {
         setEvent(props.currentEvent)
       }, [props])
+
+
+    useEffect(() => {
+        const startM = moment(event.start)
+        const endM = moment(event.end)   
+        const diff = moment.duration(endM.diff(startM)).asMinutes()
+        setDurationState(diff)
+      }, [event.start, event.end])
 
     const handleStartChange = start => {
         setEvent({...event, start:  start})
@@ -20,6 +30,11 @@ const UpdateEventForm = props => {
 
     const handleEndChange = end => {
         setEvent({...event, end:  end})
+    }
+
+    const handleDurationChange = e => {
+        const newEnd = moment(event.start).add(Number(e.target.value), 'm').toDate()
+        setEvent({...event, end:  newEnd})
     }
 
     const handleInputChange = e => {
@@ -91,6 +106,23 @@ const UpdateEventForm = props => {
                     dateFormat="Pp"
                     id='end'
                 />
+            </div>
+
+            <div>
+                <label className='label' htmlFor='duration'>Duration</label>
+                <select
+                name='duration'
+                className='input'
+                id='duration'
+                onChange={handleDurationChange}
+                value={duration}
+                >
+                    <option value="30">30 min</option>
+                    <option value="60">1 h</option>
+                    <option value="90">1 h 30 min</option>
+                    <option value="120">2 h</option>
+                    <option value={duration}>{duration} min</option>
+                </select>
             </div>
 
             <div className='update-btn-container'>

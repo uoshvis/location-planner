@@ -26,7 +26,7 @@ function Modal(props) {
             <div>
             { 
                 props.updateMode ? (<Fragment>
-                  <h2>Update Event</h2>
+                  <h2 className= 'headline-secondary'>Update Event</h2>
                   <UpdateEventForm
                     currentEvent={props.currentEvent}
                     onUpdateEvent={props.onUpdateEvent}
@@ -36,7 +36,7 @@ function Modal(props) {
                 </Fragment>
                 ) : (
                   <Fragment>
-                    <h2>Add Event</h2>
+                    <h2 className="headline-secondary">Add Event</h2>
                     <AddEventForm
                       currentEvent={props.currentEvent}
                       onCreateEvent={props.onCreateEvent}

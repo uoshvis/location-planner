@@ -49,6 +49,7 @@ const AddEventForm = props => {
                 type="text"
                 name="title"
                 id='title'
+                placeholder='Enter title'
                 value={event.title || ''}
                 onChange={handleInputChange} />
             
@@ -107,14 +108,22 @@ const AddEventForm = props => {
                 onChange={handleDurationChange}
                 className='input'
                 name='duration'
-                id='duration'>
+                id='duration'
+                >
                     <option value="30">30 min</option>
                     <option value="60">1 h</option>
                     <option value="90">1 h 30 min</option>
                     <option value="120">2 h</option>
                 </select>
 
-            <button id='btn_submit' className='btn' type="submit">Add</button>
+            <div className='add-btn-container'>
+                <button
+                    className='btn btn_submit'  
+                    type="submit"
+                >
+                Add
+                </button>
+            </div>
         </form>
     )
     }

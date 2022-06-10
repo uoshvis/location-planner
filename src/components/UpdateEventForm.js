@@ -93,22 +93,23 @@ const UpdateEventForm = props => {
                 />
             </div>
 
-            <button
-                className='btn'  
-                id='btn_delete'
-                type="button"
-                onClick={() => props.onDeleteEvent(event.id)}
-            >
-            Delete
-            </button>
+            <div className='update-btn-container'>
+                <button
+                    className='btn btn_submit'  
+                    type="button"
+                    onClick={() => props.onDeleteEvent(event.id)}
+                >
+                Delete
+                </button>
 
-            <button 
-                className='btn' 
-                id='btn_submit' 
-                type="submit"
-            >
-            Update
-            </button>
+                <button 
+                    className='btn btn_submit' 
+                    type="submit"
+                >
+                Update
+                </button>
+
+            </div>
 
         </form>
     )   

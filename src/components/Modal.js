@@ -36,7 +36,7 @@ function Modal(props) {
                 </Fragment>
                 ) : (
                   <Fragment>
-                    <h2 className="headline-secondary">Add Event</h2>
+                    <h2 className="headline-secondary">Add New Event</h2>
                     <AddEventForm
                       currentEvent={props.currentEvent}
                       onCreateEvent={props.onCreateEvent}

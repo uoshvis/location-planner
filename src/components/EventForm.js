@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
 import lt from 'date-fns/locale/lt';
+import { ifInArray, formatMinDuration } from '../utils/helpers'
 
 registerLocale('lt', lt)
 
@@ -61,27 +62,7 @@ const EventForm = props => {
         props.onHandleSubmit(event)
     }
     
-    const checkIfDurationExists = val => {
-        return durationValues.indexOf(val) > -1
-    }
-    
-    const formatMinDuration = minDuration => {
-        var formatedDuration
-        const days = Math.floor(minDuration/1440);
-        const hours = Math.floor((minDuration%1440)/60);
-        const minutes = Math.ceil((minDuration%1440)%60);
 
-        if (days) {
-            formatedDuration = `${days} d ${hours} h ${minutes} min`
-        }
-        else if (hours) {
-            formatedDuration = `${hours} h ${minutes} min`
-        }
-        else if (minutes) {
-            formatedDuration = `${minutes} min`
-        }
-        return formatedDuration
-    }
 
     return (
         <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
@@ -155,7 +136,7 @@ const EventForm = props => {
                     <option value="60">1 h</option>
                     <option value="90">1 h 30 min</option>
                     <option value="120">2 h</option>
-                    {!checkIfDurationExists(duration) ? 
+                    {!ifInArray(durationValues, duration) ? 
                         <option value={duration}> 
                             {validDuration ? formatMinDuration(duration) : 'Invalid duration'}
                         </option> : ''

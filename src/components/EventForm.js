@@ -10,7 +10,8 @@ registerLocale('lt', lt)
 const EventForm = props => {
 
     const [event, setEvent] = useState(props.currentEvent)
-    const [duration, setDurationState] = useState('')   
+    const [duration, setDurationState] = useState('')
+    const durationValues = [30, 60, 90, 120]   
 
     useEffect(() => {
         setEvent(props.currentEvent)
@@ -43,13 +44,15 @@ const EventForm = props => {
         setEvent({ ...event, [name]: value })
     }
 
-
     const handleSubmit = e => {
         e.preventDefault()
 
         props.onHandleSubmit(event)
     }
-
+    
+    const checkIfDurationExists = val => {
+        return durationValues.indexOf(val) > -1
+    } 
 
     return (
         <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
@@ -91,8 +94,7 @@ const EventForm = props => {
                     id='start'
                 />            
 
-            </div>
-        
+            </div>        
             
             <div>   
             
@@ -114,24 +116,27 @@ const EventForm = props => {
             <div>
                 <label className='label' htmlFor='duration'>Duration</label>
                 <select
-                name='duration'
-                className='input'
-                id='duration'
-                onChange={handleDurationChange}
-                value={duration}
+                    name='duration'
+                    className='input'
+                    id='duration'
+                    onChange={handleDurationChange}
+                    value={duration}
                 >
                     <option value="30">30 min</option>
                     <option value="60">1 h</option>
                     <option value="90">1 h 30 min</option>
                     <option value="120">2 h</option>
-                    <option value={duration}>{duration} min</option>
+                    {!checkIfDurationExists(duration) ? 
+                        <option value={duration}>{duration} min</option> : ''
+                    }
                 </select>
             </div>
+            {/* display custom form buttons below */}
 
             {props.buttons}
 
         </form>
     )   
-    }
+}
 
 export default EventForm

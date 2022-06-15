@@ -11,7 +11,7 @@ const EventForm = props => {
 
     const durationValues = ['30', '60', '90', '120']    
     const [event, setEvent] = useState(props.currentEvent)
-    const [duration, setDuration] = useState('_')
+    const [duration, setDuration] = useState('0')
     const [validDuration, setvalidDuration] = useState(true)
     
     useEffect(() => {
@@ -22,11 +22,11 @@ const EventForm = props => {
         const startM = moment(event.start)
         const endM = moment(event.end)   
         const diff = moment.duration(endM.diff(startM)).asMinutes()
-        setDuration(String(diff))
         
-        if (diff < 0) {
+        setDuration(String(diff))
+
+        if (diff <= 0) {
             setvalidDuration(false)
-            setDuration('Invalid duration')
         }
         else {
             setvalidDuration(true)
@@ -63,7 +63,25 @@ const EventForm = props => {
     
     const checkIfDurationExists = val => {
         return durationValues.indexOf(val) > -1
-    } 
+    }
+    
+    const formatMinDuration = minDuration => {
+        var formatedDuration
+        const days = Math.floor(minDuration/1440);
+        const hours = Math.floor((minDuration%1440)/60);
+        const minutes = Math.ceil((minDuration%1440)%60);
+
+        if (days) {
+            formatedDuration = `${days} d ${hours} h ${minutes} min`
+        }
+        else if (hours) {
+            formatedDuration = `${hours} h ${minutes} min`
+        }
+        else if (minutes) {
+            formatedDuration = `${minutes} min`
+        }
+        return formatedDuration
+    }
 
     return (
         <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
@@ -138,7 +156,9 @@ const EventForm = props => {
                     <option value="90">1 h 30 min</option>
                     <option value="120">2 h</option>
                     {!checkIfDurationExists(duration) ? 
-                        <option value={duration}>{duration} min</option> : ''
+                        <option value={duration}> 
+                            {validDuration ? formatMinDuration(duration) : 'Invalid duration'}
+                        </option> : ''
                     }
                 </select>
             </div>

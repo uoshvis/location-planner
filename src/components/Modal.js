@@ -26,17 +26,14 @@ function Modal(props) {
             <div>
             { 
                 props.updateMode ? (<Fragment>
-                  <h2 className= 'headline-secondary'>Update Event</h2>
                   <UpdateEventForm
                     currentEvent={props.currentEvent}
                     onUpdateEvent={props.onUpdateEvent}
-                    onDeleteEvent={props.onDeleteEvent}
-                    onCloseModal={props.onCloseModal}
+                    handleDeleteEvent={props.onDeleteEvent}
                   />
                 </Fragment>
                 ) : (
                   <Fragment>
-                    <h2 className="headline-secondary">Add New Event</h2>
                     <AddEventForm
                       currentEvent={props.currentEvent}
                       onCreateEvent={props.onCreateEvent}

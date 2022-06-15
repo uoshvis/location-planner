@@ -1,3 +1,7 @@
+:root {
+  --borderRadius : 10px;
+}
+
 body {
   margin: 100px;
 }
@@ -33,7 +37,7 @@ body {
   transform: translate(-50%, -50%);
   background: linear-gradient(to right, #707fc0, #d483b5);
   z-index: 4;
-  border-radius: 5px;
+  border-radius: var(--borderRadius);
 }
 
 .overlay {
@@ -57,7 +61,7 @@ body {
 
 .btn {
   border: 1px solid #f3ebeb;
-  border-radius: 5px;
+  border-radius: var(--borderRadius);
   outline: none;
   padding: 12px 16px;
   margin: 1px;
@@ -83,7 +87,7 @@ body {
   position: absolute;
   top: 0px;
   right: 0px;
-  border-top-left-radius: 5px;
+  border-top-left-radius: var(--borderRadius);
   background-color: #666;
   color: white;
   padding: 5px 8px;
@@ -127,6 +131,11 @@ body {
   font-size: 24px;
   color: white;
   width: 100%;
+}
+
+.input_invalid {
+  background-color: purple;
+  border-radius: var(--borderRadius);
 }
 
 .input::placeholder {

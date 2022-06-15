@@ -9,21 +9,30 @@ registerLocale('lt', lt)
 
 const EventForm = props => {
 
+    const durationValues = ['30', '60', '90', '120']    
     const [event, setEvent] = useState(props.currentEvent)
-    const [duration, setDurationState] = useState('')
-    const durationValues = [30, 60, 90, 120]   
-
+    const [duration, setDuration] = useState('_')
+    const [validDuration, setvalidDuration] = useState(true)
+    
     useEffect(() => {
         setEvent(props.currentEvent)
       }, [props])
-
-
+    
     useEffect(() => {
         const startM = moment(event.start)
         const endM = moment(event.end)   
         const diff = moment.duration(endM.diff(startM)).asMinutes()
-        setDurationState(diff)
-      }, [event.start, event.end])
+        setDuration(String(diff))
+        
+        if (diff < 0) {
+            setvalidDuration(false)
+            setDuration('Invalid duration')
+        }
+        else {
+            setvalidDuration(true)
+        }
+        
+    }, [event.start, event.end])
 
     const handleStartChange = start => {
         setEvent({...event, start:  start})
@@ -34,7 +43,9 @@ const EventForm = props => {
     }
 
     const handleDurationChange = e => {
-        const newEnd = moment(event.start).add(Number(e.target.value), 'm').toDate()
+        const newEnd = moment(event.start)
+            .add(Number(e.target.value), 'm')
+            .toDate()
         setEvent({...event, end:  newEnd})
     }
 
@@ -101,7 +112,7 @@ const EventForm = props => {
                 <label className='label' htmlFor='end'>End Date</label>
                 
                 <DatePicker
-                    className='input'
+                    className={validDuration ? 'input' : 'input input_invalid'}
                     selected={event.end}
                     onChange={handleEndChange}
                     locale="lt"
@@ -117,7 +128,7 @@ const EventForm = props => {
                 <label className='label' htmlFor='duration'>Duration</label>
                 <select
                     name='duration'
-                    className='input'
+                    className={validDuration ? 'input' : 'input input_invalid'}
                     id='duration'
                     onChange={handleDurationChange}
                     value={duration}

@@ -52,6 +52,7 @@ function App() {
   const spinnerEl = useRef(null);
 
   useEffect(() =>  {
+    // run only if style is not defined (once)
     if (isLoading && Object.keys(spinnerStyle).length === 0) {
       const spinnerColor = window.getComputedStyle(spinnerEl.current).getPropertyValue("color")
       const spinnerWidth = window.getComputedStyle(spinnerEl.current).getPropertyValue("width")

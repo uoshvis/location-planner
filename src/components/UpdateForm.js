@@ -1,6 +1,6 @@
 import EventForm from './EventForm'
 
-const UpdateEventForm = props => {
+const UpdateForm = props => {
     const buttons = 
         <div className='update-btn-container'>
             <button
@@ -31,4 +31,4 @@ const UpdateEventForm = props => {
     )   
 }
 
-export default UpdateEventForm
+export default UpdateForm

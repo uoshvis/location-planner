@@ -1,6 +1,6 @@
 import EventForm from './EventForm'
 
-const AddEventForm = props => {
+const AddForm = props => {
     const buttons = 
         <div className='add-btn-container'>
             <button
@@ -23,4 +23,4 @@ const AddEventForm = props => {
     )
 }
 
-export default AddEventForm
+export default AddForm

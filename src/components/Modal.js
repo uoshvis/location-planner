@@ -1,6 +1,6 @@
 import ReactModal from "react-modal";
-import AddEventForm from "./AddEventForm";
-import UpdateEventForm from "./UpdateEventForm";
+import AddForm from "./AddForm";
+import UpdateForm from "./UpdateForm";
 import { Fragment } from 'react'
 
 ReactModal.setAppElement('#root')
@@ -26,7 +26,7 @@ function Modal(props) {
             <div>
             { 
                 props.updateMode ? (<Fragment>
-                  <UpdateEventForm
+                  <UpdateForm
                     currentEvent={props.currentEvent}
                     onUpdateEvent={props.onUpdateEvent}
                     handleDeleteEvent={props.onDeleteEvent}
@@ -34,7 +34,7 @@ function Modal(props) {
                 </Fragment>
                 ) : (
                   <Fragment>
-                    <AddEventForm
+                    <AddForm
                       currentEvent={props.currentEvent}
                       onCreateEvent={props.onCreateEvent}
                   />

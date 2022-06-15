@@ -16,7 +16,7 @@ const EventForm = props => {
     
     useEffect(() => {
         setEvent(props.currentEvent)
-      }, [props])
+      }, [props.currentEvent])
     
     useEffect(() => {
         const startM = moment(event.start)

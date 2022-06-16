@@ -53,7 +53,7 @@ const createEvent = (data) =>
 
         if (!validateData(data)) {
             return setTimeout(
-                () => reject(new Error('Not all information provided')),
+                () => reject(new Error('Invalid data provided')),
                 500
             )            
         }
@@ -80,7 +80,7 @@ const updateEvent = (eventId, data) =>
 
         if (!validateData(data)) {
             return setTimeout(
-                () => reject(new Error('Not all information provided')),
+                () => reject(new Error('Invalid data provided')),
                 500
             )            
         }
@@ -112,8 +112,9 @@ const deleteEvent = (eventId) =>
 // Helper
 
 const validateData = (data) => {
-    const dataIsValid = data.title && data.location && data.start && data.end
-    return dataIsValid
+    const dataIsNotEmpty = data.title && data.location && data.start && data.end
+    const endIsLater = data.end > data.start
+    return dataIsNotEmpty && endIsLater
 }
 
 export  { getEventsByLocation, createEvent, updateEvent, deleteEvent }

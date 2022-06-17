@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import ReactModal from "react-modal";
 import AddForm from "./AddForm";
 import UpdateForm from "./UpdateForm";
@@ -26,20 +25,17 @@ function Modal(props) {
     >
       { 
         props.updateMode ? (
-          <Fragment>
             <UpdateForm
               currentEvent={props.currentEvent}
               onUpdateEvent={props.onUpdateEvent}
               handleDeleteEvent={props.onDeleteEvent}
             />
-          </Fragment>
+
         ) : (
-          <Fragment>
             <AddForm
               currentEvent={props.currentEvent}
               onCreateEvent={props.onCreateEvent}
           />
-          </Fragment>
         )
       }
       <CloseBtn

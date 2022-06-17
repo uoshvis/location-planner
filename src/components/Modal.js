@@ -24,23 +24,21 @@ function Modal(props) {
       parentSelector={() => document.querySelector('.App')}
     >
       { 
-        props.updateMode ? (
-            <UpdateForm
-              currentEvent={props.currentEvent}
-              onUpdateEvent={props.onUpdateEvent}
-              handleDeleteEvent={props.onDeleteEvent}
-            />
-
-        ) : (
-            <AddForm
-              currentEvent={props.currentEvent}
-              onCreateEvent={props.onCreateEvent}
+        props.updateMode ? 
+          <UpdateForm
+            currentEvent={props.currentEvent}
+            onUpdateEvent={props.onUpdateEvent}
+            handleDeleteEvent={props.onDeleteEvent}
           />
-        )
+        : 
+          <AddForm
+            currentEvent={props.currentEvent}
+            onCreateEvent={props.onCreateEvent}
+          />
       }
-      <CloseBtn
-        onCloseModal={props.onCloseModal}
-      />
+
+      <CloseBtn onCloseModal={props.onCloseModal}/>
+
     </ReactModal>            
   )    
 }

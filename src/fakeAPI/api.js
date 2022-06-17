@@ -46,20 +46,35 @@ const getEventsByLocation = (eventLocation) =>
         }
         setTimeout(() => resolve(eventsByLocation), 500)
     })
+// TODO implement field check in FRONTEND == More Reactive
 
+const getEmptyFieldNames = (obj) => {
+    const emptyFields = []
+    for (var key in obj) {
+        if (obj[key] === null || obj[key] === '')
+            emptyFields.push(key)
+    }
+    return emptyFields
+
+}
 
 const createEvent = (data) => 
     new Promise((resolve, reject) => {
-
+        
         if (!validateData(data)) {
+           
             return setTimeout(
-                () => reject(new Error('Invalid data provided')),
+                () => reject(
+                    new Error(
+                        'Invalid data provided',
+                        {cause: getEmptyFieldNames(data)}
+                    )),
                 500
-            )            
-        }
+                )            
+            }
+            
         const uuid = uuidv4()
         const newEvent = {...data, id: uuid}
-
         events.push(newEvent)
 
         setTimeout(() => resolve(true), 500)

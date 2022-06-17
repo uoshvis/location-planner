@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
 import lt from 'date-fns/locale/lt';
 import { ifInArray, formatMinDuration } from '../utils/helpers'
+import {useCalculateDuration, useDurationIsValid} from '../utils/customHooks'
 
 registerLocale('lt', lt)
 
@@ -12,29 +13,13 @@ const EventForm = props => {
 
     const durationValues = ['30', '60', '90', '120']    
     const [event, setEvent] = useState(props.currentEvent)
-    const [duration, setDuration] = useState('0')
-    const [validDuration, setvalidDuration] = useState(true)
+    const duration = useCalculateDuration(event.start, event.end)
+    const durationIsValid = useDurationIsValid(duration)
     
     useEffect(() => {
         setEvent(props.currentEvent)
       }, [props.currentEvent])
     
-    useEffect(() => {
-        const startM = moment(event.start)
-        const endM = moment(event.end)   
-        const diff = moment.duration(endM.diff(startM)).asMinutes()
-        
-        setDuration(String(diff))
-
-        if (diff <= 0) {
-            setvalidDuration(false)
-        }
-        else {
-            setvalidDuration(true)
-        }
-        
-    }, [event.start, event.end])
-
     const handleStartChange = start => {
         setEvent({...event, start:  start})
     }
@@ -62,8 +47,6 @@ const EventForm = props => {
         props.onHandleSubmit(event)
     }
     
-
-
     return (
         <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
             <label className='label' htmlFor='title'>Title</label>
@@ -111,7 +94,7 @@ const EventForm = props => {
                 <label className='label' htmlFor='end'>End Date</label>
                 
                 <DatePicker
-                    className={validDuration ? 'input' : 'input input_invalid'}
+                    className={durationIsValid ? 'input' : 'input input_invalid'}
                     selected={event.end}
                     onChange={handleEndChange}
                     locale="lt"
@@ -127,7 +110,7 @@ const EventForm = props => {
                 <label className='label' htmlFor='duration'>Duration</label>
                 <select
                     name='duration'
-                    className={validDuration ? 'input' : 'input input_invalid'}
+                    className={durationIsValid ? 'input' : 'input input_invalid'}
                     id='duration'
                     onChange={handleDurationChange}
                     value={duration}
@@ -138,7 +121,7 @@ const EventForm = props => {
                     <option value="120">2 h</option>
                     {!ifInArray(durationValues, duration) ? 
                         <option value={duration}> 
-                            {validDuration ? formatMinDuration(duration) : 'Invalid duration'}
+                            {durationIsValid ? formatMinDuration(duration) : 'Invalid duration'}
                         </option> : ''
                     }
                 </select>

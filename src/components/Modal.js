@@ -1,7 +1,8 @@
+import { Fragment } from 'react'
 import ReactModal from "react-modal";
 import AddForm from "./AddForm";
 import UpdateForm from "./UpdateForm";
-import { Fragment } from 'react'
+import CloseBtn from "./CloseBtn";
 
 ReactModal.setAppElement('#root')
 
@@ -15,48 +16,37 @@ function Modal(props) {
   }
 
   return (
-            <ReactModal
-              isOpen={props.showModal}
-              contentLabel={'Calendar form'}
-              onRequestClose={props.onCloseModal}
-              className={props.isLoading ? modalClassNames.loading : modalClassNames.normal}
-              overlayClassName={modalClassNames.overlay}
-              parentSelector={() => document.querySelector('.App')}
-            >
-            <div>
-            { 
-                props.updateMode ? (<Fragment>
-                  <UpdateForm
-                    currentEvent={props.currentEvent}
-                    onUpdateEvent={props.onUpdateEvent}
-                    handleDeleteEvent={props.onDeleteEvent}
-                  />
-                </Fragment>
-                ) : (
-                  <Fragment>
-                    <AddForm
-                      currentEvent={props.currentEvent}
-                      onCreateEvent={props.onCreateEvent}
-                  />
-                  </Fragment>
-                )}
-
-            </div>
-
-
-            <button 
-              className='btn' 
-              id='btn_close'
-              onClick={props.onCloseModal}
-            >
-            <span>X</span>
-            </button>
-
-            </ReactModal>            
-
-    )    
-    
-  }
-
+    <ReactModal
+      isOpen={props.showModal}
+      contentLabel={'Calendar form'}
+      onRequestClose={props.onCloseModal}
+      className={props.isLoading ? modalClassNames.loading : modalClassNames.normal}
+      overlayClassName={modalClassNames.overlay}
+      parentSelector={() => document.querySelector('.App')}
+    >
+      { 
+        props.updateMode ? (
+          <Fragment>
+            <UpdateForm
+              currentEvent={props.currentEvent}
+              onUpdateEvent={props.onUpdateEvent}
+              handleDeleteEvent={props.onDeleteEvent}
+            />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <AddForm
+              currentEvent={props.currentEvent}
+              onCreateEvent={props.onCreateEvent}
+          />
+          </Fragment>
+        )
+      }
+      <CloseBtn
+        onCloseModal={props.onCloseModal}
+      />
+    </ReactModal>            
+  )    
+}
 
 export default Modal;

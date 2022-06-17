@@ -17,14 +17,15 @@ const localizer = momentLocalizer(moment)
 
 function App() { 
 
-  const initialEventState = { id: null, location: '', title: '', start: '', end: '' }
+  const initialEventState = {title: '', location: '',start: '', end: '' }
   const [location, setLocation] = useState('all')
   const [events, setEvents] = useState([])
   const [isLoading, setIsLoading] = useState(false);
   const [spinnerStyle, setSpinnerStyle] = useState({})
   const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
-  const [updateMode, setUpdateMode] = useState(false)  
+  const [updateMode, setUpdateMode] = useState(false)
+  const [status, setStatus] = useState({isError: false, errorDetails: ''})
 
 
   const doGetEvents = useCallback(async () => {
@@ -102,7 +103,13 @@ function App() {
       await refetchEvents()
       handleCloseModal()
     } catch (error) {
-      alert(error)
+      
+      setStatus(
+        {
+          isError: true,
+          errorCause: error.cause
+        }
+      )
     }
   }
 
@@ -176,6 +183,7 @@ function App() {
             onUpdateEvent={handleUpdateEvent}
             onDeleteEvent={handleDeleteEvent}
             currentEvent={currentEvent}
+            status={status}
           />
          } 
     </div>
@@ -184,3 +192,6 @@ function App() {
 
 
 export default App;
+
+
+// Todo Add darkMode

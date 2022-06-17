@@ -10,15 +10,31 @@ import {useCalculateDuration, useDurationIsValid} from '../utils/customHooks'
 registerLocale('lt', lt)
 
 const EventForm = props => {
-
+    const formStatus = props.status
     const durationValues = ['30', '60', '90', '120']    
     const [event, setEvent] = useState(props.currentEvent)
     const duration = useCalculateDuration(event.start, event.end)
     const durationIsValid = useDurationIsValid(duration)
+    // const [invalidFields, setInvalidFields] = useState([])
+    const [titleIsValid, setTitleIsValid] = useState(true)
+    const [locationIsValid, setLocationIsValid] = useState(true)
     
+    
+    console.log(formStatus)
     useEffect(() => {
         setEvent(props.currentEvent)
       }, [props.currentEvent])
+
+
+    useEffect(() => {
+        if(props.status.isError) {
+            const causeArr = props.status.errorCause
+
+            causeArr.includes('title') ? setTitleIsValid(false) :  setTitleIsValid(true)
+            causeArr.includes('location') ? setLocationIsValid(false) :  setLocationIsValid(true)      
+        }
+
+    }, [props.status.isError, props.status.errorCause])
     
     const handleStartChange = start => {
         setEvent({...event, start:  start})
@@ -46,15 +62,15 @@ const EventForm = props => {
 
         props.onHandleSubmit(event)
     }
-    
+
     return (
         <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
             <label className='label' htmlFor='title'>Title</label>
             <input
                 type="text"
                 name="title"
-                id='title'
-                className='input'
+                id='title'                
+                className={titleIsValid ? 'input' : 'input input_invalid'}
                 value={event.title || ''}
                 onChange={handleInputChange} />
 
@@ -63,8 +79,7 @@ const EventForm = props => {
             <select 
                 name="location"
                 id="location-select"
-                className='input'
-                value={event.location}
+                className={locationIsValid ? 'input' : 'input input_invalid'}  value={event.location}
                 onChange={handleInputChange}
             >                
                 <option value="" defaultValue hidden >Please Choose...</option>

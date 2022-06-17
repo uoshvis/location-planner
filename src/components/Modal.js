@@ -32,6 +32,7 @@ function Modal(props) {
           />
         : 
           <AddForm
+            status={props.status}
             currentEvent={props.currentEvent}
             onCreateEvent={props.onCreateEvent}
           />

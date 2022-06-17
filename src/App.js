@@ -184,8 +184,3 @@ function App() {
 
 
 export default App;
-
-
-// TODO fix dynamic duration change
-// TODO validate Start date < End Date
-// TODO duration converter

@@ -143,9 +143,8 @@ const EventForm = props => {
                     }
                 </select>
             </div>
-            {/* display custom form buttons below */}
-
-            {props.buttons}
+            
+            { props.actionBtns() }
 
         </form>
     )   

@@ -1,23 +1,14 @@
 import EventForm from './EventForm'
+import AddBtn from './AddBtn'
 
 const AddForm = props => {
-    const buttons = 
-        <div className='add-btn-container'>
-            <button
-                className='btn btn_submit'  
-                type="submit"
-            >
-            Add
-            </button>
-        </div>
-
     return (
         <div>
             <h2 className="headline-secondary">Add New Event</h2>
             <EventForm
                 currentEvent={props.currentEvent}
                 onHandleSubmit={props.onCreateEvent}
-                buttons={buttons}       
+                actionBtns={ () => <AddBtn/> }       
             />
         </div>
     )

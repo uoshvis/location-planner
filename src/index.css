@@ -74,6 +74,12 @@ body {
   background-color: #ddd;  
 }
 
+.btn:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 .btn_location_normal {
   background-color: white;
 }

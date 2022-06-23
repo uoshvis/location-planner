@@ -10,32 +10,54 @@ import {useCalculateDuration, useDurationIsValid} from '../utils/customHooks'
 registerLocale('lt', lt)
 
 const EventForm = props => {
-    const formStatus = props.status
     const durationValues = ['30', '60', '90', '120']    
     const [event, setEvent] = useState(props.currentEvent)
     const duration = useCalculateDuration(event.start, event.end)
     const durationIsValid = useDurationIsValid(duration)
-    // const [invalidFields, setInvalidFields] = useState([])
-    const [titleIsValid, setTitleIsValid] = useState(true)
-    const [locationIsValid, setLocationIsValid] = useState(true)
+    const [titleIsValid, setTitleIsValid] = useState(false)
+    const [locationIsValid, setLocationIsValid] = useState(false)
+    const [startDateIsValid, setStartDateIsValid] = useState(false)
+    const [endDateIsValid, setEndDateIsValid] = useState(false)
+
     
     
-    console.log(formStatus)
     useEffect(() => {
         setEvent(props.currentEvent)
       }, [props.currentEvent])
 
 
     useEffect(() => {
-        if(props.status.isError) {
-            const causeArr = props.status.errorCause
-
-            causeArr.includes('title') ? setTitleIsValid(false) :  setTitleIsValid(true)
-            causeArr.includes('location') ? setLocationIsValid(false) :  setLocationIsValid(true)      
+        // Title
+        if(event.title) {
+            setTitleIsValid(true)
         }
+        else {
+            setTitleIsValid(false)
+        }
+        // Location
+        if (event.location) {
+            setLocationIsValid(true)
+        }
+        else {
+            setLocationIsValid(false)
+        }
+        //Start date
+        if (event.start) {
+            setStartDateIsValid(true)
+        }
+        else {
+            setStartDateIsValid(false)
+        }        
+        //End date
+        if (event.end) {
+            setEndDateIsValid(true)
+        }
+        else {
+            setEndDateIsValid(false)
+        }
+    }, [event])
 
-    }, [props.status.isError, props.status.errorCause])
-    
+
     const handleStartChange = start => {
         setEvent({...event, start:  start})
     }
@@ -52,6 +74,7 @@ const EventForm = props => {
     }
 
     const handleInputChange = e => {
+
         const { name, value } = e.target
 
         setEvent({ ...event, [name]: value })
@@ -91,7 +114,7 @@ const EventForm = props => {
                 <label className='label' htmlFor='start'>Start Date</label>
 
                 <DatePicker
-                    className='input'
+                    className={startDateIsValid ? 'input' : 'input input_invalid'}
                     selected={event.start}
                     onChange={handleStartChange}
                     locale="lt"
@@ -109,7 +132,7 @@ const EventForm = props => {
                 <label className='label' htmlFor='end'>End Date</label>
                 
                 <DatePicker
-                    className={durationIsValid ? 'input' : 'input input_invalid'}
+                    className={durationIsValid && endDateIsValid ? 'input' : 'input input_invalid'}
                     selected={event.end}
                     onChange={handleEndChange}
                     locale="lt"

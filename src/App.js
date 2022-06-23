@@ -25,7 +25,7 @@ function App() {
   const [currentEvent, setCurrentEvent] = useState(initialEventState)
   const [showModal, setShowModal] = useState(false)
   const [updateMode, setUpdateMode] = useState(false)
-  const [status, setStatus] = useState({isError: false, errorDetails: ''})
+  const [status, setStatus] = useState({isError: false, errorCause: ''})
 
 
   const doGetEvents = useCallback(async () => {
@@ -48,6 +48,12 @@ function App() {
     await doGetEvents()
   }
 
+  useEffect(() => {
+    if (status.isError) {
+      alert(`Please check ${status.errorCause}`)
+    }
+  }, [status])
+  
   // get spinner style from parent div css and pass to TailSpin Component
 
   const spinnerEl = useRef(null);
@@ -134,7 +140,12 @@ function App() {
       await refetchEvents()
       handleCloseModal()
     } catch (error) {
-      alert(error)
+      setStatus(
+        {
+          isError: true,
+          errorCause: error.cause
+        }
+      )
     }
   }
 
@@ -187,7 +198,6 @@ function App() {
             onUpdateEvent={handleUpdateEvent}
             onDeleteEvent={handleDeleteEvent}
             currentEvent={currentEvent}
-            status={status}
           />
          } 
     </div>

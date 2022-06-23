@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const events =  require('./mockEvents') ;
-
+const {validateData, getEmptyFieldNames} = require('./apiHelpers')
 
 // ######## START of Unused functions comment ########
 
@@ -46,17 +46,6 @@ const getEventsByLocation = (eventLocation) =>
         }
         setTimeout(() => resolve(eventsByLocation), 500)
     })
-// TODO implement field check in FRONTEND == More Reactive
-
-const getEmptyFieldNames = (obj) => {
-    const emptyFields = []
-    for (var key in obj) {
-        if (obj[key] === null || obj[key] === '')
-            emptyFields.push(key)
-    }
-    return emptyFields
-
-}
 
 const createEvent = (data) => 
     new Promise((resolve, reject) => {
@@ -90,7 +79,7 @@ const updateEvent = (eventId, data) =>
             return setTimeout(() => reject(
                 new Error(
                     'Index does not exists',
-                    {cause: []}
+                    {cause: ['no object']}
                 )),
             500
             )         
@@ -119,25 +108,19 @@ const deleteEvent = (eventId) =>
         const eventIndex = events.findIndex((obj => obj.id === eventId));
 
         if(eventIndex === -1) {
-            return setTimeout(
-                () => reject(new Error('User not found')),
-                500
-            )
+            return setTimeout(() => reject(
+                new Error(
+                    'Index does not exists',
+                    {cause: ['no object']}
+                )),
+            500
+            )         
         }
 
         events.splice(eventIndex, 1)
 
         return setTimeout(() => resolve(true), 500);
     })
-
-
-// Helper
-
-const validateData = (data) => {
-    const dataIsNotEmpty = data.title && data.location && data.start && data.end
-    const endIsLater = data.end > data.start
-    return dataIsNotEmpty && endIsLater
-}
 
 export  { getEventsByLocation, createEvent, updateEvent, deleteEvent }
 

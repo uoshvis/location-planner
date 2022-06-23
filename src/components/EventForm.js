@@ -18,13 +18,12 @@ const EventForm = props => {
     const [locationIsValid, setLocationIsValid] = useState(false)
     const [startDateIsValid, setStartDateIsValid] = useState(false)
     const [endDateIsValid, setEndDateIsValid] = useState(false)
-
+    const [dataIsValid, setDataIsValid] = useState(false)
     
     
     useEffect(() => {
         setEvent(props.currentEvent)
       }, [props.currentEvent])
-
 
     useEffect(() => {
         // Title
@@ -57,6 +56,15 @@ const EventForm = props => {
         }
     }, [event])
 
+    useEffect(() => {
+        if (titleIsValid && locationIsValid && startDateIsValid && endDateIsValid && durationIsValid) {
+            setDataIsValid(true)
+        }
+        else {
+            setDataIsValid(false)
+        }
+    }, [titleIsValid, locationIsValid, startDateIsValid, endDateIsValid, durationIsValid])
+
 
     const handleStartChange = start => {
         setEvent({...event, start:  start})
@@ -74,7 +82,6 @@ const EventForm = props => {
     }
 
     const handleInputChange = e => {
-
         const { name, value } = e.target
 
         setEvent({ ...event, [name]: value })
@@ -123,12 +130,10 @@ const EventForm = props => {
                     timeIntervals={30}
                     dateFormat="Pp"
                     id='start'
-                />            
-
+                />
             </div>        
             
-            <div>   
-            
+            <div>
                 <label className='label' htmlFor='end'>End Date</label>
                 
                 <DatePicker
@@ -164,8 +169,8 @@ const EventForm = props => {
                     }
                 </select>
             </div>
-            
-            { props.actionBtns() }
+
+            {props.actionBtns(dataIsValid)}
 
         </form>
     )   

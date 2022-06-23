@@ -5,6 +5,7 @@ const UpdateDeleteBtns = props => {
                 <button
                     className='btn btn_submit'  
                     type="button"
+                    disabled={!props.dataIsValid}
                     onClick={() => props.deleteEventHandler(props.event.id)}
                 >
                 Delete
@@ -13,6 +14,7 @@ const UpdateDeleteBtns = props => {
                 <button 
                     className='btn btn_submit' 
                     type="submit"
+                    disabled={!props.dataIsValid}
                 >
                 Update
                 </button>

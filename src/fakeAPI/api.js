@@ -87,17 +87,24 @@ const updateEvent = (eventId, data) =>
         const eventIndex = events.findIndex((obj => obj.id === eventId));
     
         if(eventIndex === -1) {
-            return setTimeout(
-                () => reject(new Error('Event not found')),
-                500
-            )
+            return setTimeout(() => reject(
+                new Error(
+                    'Index does not exists',
+                    {cause: []}
+                )),
+            500
+            )         
         }
 
         if (!validateData(data)) {
             return setTimeout(
-                () => reject(new Error('Invalid data provided')),
+                () => reject(
+                    new Error(
+                        'Invalid data provided',
+                        {cause: getEmptyFieldNames(data)}
+                    )),
                 500
-            )            
+                )
         }
 
         events[eventIndex] = { ...events[eventIndex], ...data}

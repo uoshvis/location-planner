@@ -26,6 +26,7 @@ function Modal(props) {
       { 
         props.updateMode ? 
           <UpdateForm
+            status={props.status}
             currentEvent={props.currentEvent}
             onUpdateEvent={props.onUpdateEvent}
             handleDeleteEvent={props.onDeleteEvent}

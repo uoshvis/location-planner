@@ -102,8 +102,7 @@ function App() {
       await createEvent(event)
       await refetchEvents()
       handleCloseModal()
-    } catch (error) {
-      
+    } catch (error) {      
       setStatus(
         {
           isError: true,
@@ -120,7 +119,12 @@ function App() {
       await refetchEvents()
       handleCloseModal()
     } catch (error) {
-      alert(error)
+      setStatus(
+        {
+          isError: true,
+          errorCause: error.cause
+        }
+      )
     }
   }
   

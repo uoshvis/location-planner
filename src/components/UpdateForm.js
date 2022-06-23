@@ -5,7 +5,10 @@ const UpdateForm = props => {
     return (
         <div>
             <h2 className= 'headline-secondary'>Update Event</h2>
+            <p>{String(props.status.errorCause)}</p>
+
             <EventForm
+                status={props.status}
                 currentEvent={props.currentEvent}
                 onHandleSubmit={props.onUpdateEvent}
                 onHandleDelete={props.handleDeleteEvent}

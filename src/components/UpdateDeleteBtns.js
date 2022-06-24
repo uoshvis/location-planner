@@ -1,24 +1,26 @@
+import { UpdateBtnContainer, ButtonSubmit } from "./styles"
+
 const UpdateDeleteBtns = props => {
     
     return (
-            <div className='update-btn-container'>
-                <button
-                    className='btn btn_submit'  
-                    type="button"
-                    disabled={!props.dataIsValid}
-                    onClick={() => props.deleteEventHandler(props.event.id)}
-                >
-                Delete
-                </button>
+        <UpdateBtnContainer>
+            <ButtonSubmit
+                type="button"
+                disabled={!props.dataIsValid}
+                onClick={() => props.deleteEventHandler(props.event.id)}
+            >
+            Delete
+            </ButtonSubmit>
 
-                <button 
-                    className='btn btn_submit' 
-                    type="submit"
-                    disabled={!props.dataIsValid}
-                >
-                Update
-                </button>
-            </div>
+            <ButtonSubmit 
+                type="submit"
+                disabled={!props.dataIsValid}
+            >
+            Update
+            </ButtonSubmit>
+        </UpdateBtnContainer>
+
+
     )   
 }
 

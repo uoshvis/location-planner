@@ -73,37 +73,6 @@ body {
   color: white;
 }
 
-#btn_close {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  border-top-left-radius: var(--borderRadius);
-  background-color: #666;
-  color: white;
-  padding: 5px 8px;
-  margin: 0;
-}
-
-#btn_close > span {
-  font-size: 15px;
-}
-
-.add-btn-container {
-  margin: 10px;
-  display: flex;
-  justify-content: center;
-}
-
-.update-btn-container {
-  margin: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.btn_submit {
-  width: 40%;
-}
-
 .event-form {
   display: flex;
   flex-direction: column;

@@ -15,18 +15,6 @@ body {
   color: black;
 }
 
-.headline-primary {
-  font-size: 28px;
-  font-weight: 200;
-  letter-spacing: 2px;
-  }
-
-.headline-secondary {
-  font-size: 24px;
-  font-weight: 200;
-  letter-spacing: 2px;
-  }
-
 .modal-component {
   width: auto;
   margin:0 auto;

@@ -4,6 +4,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { TailSpin } from 'react-loader-spinner';
+import styled from 'styled-components';
 
 import Modal from './components/Modal';
 import LocationBtn from './components/LocationBtn';
@@ -155,8 +156,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className='headline-primary'>Location Planner</h1>
-      
+      <HeadlinePrimary>Location Planner</HeadlinePrimary>
+
         <LocationBtn
           location={location}
           handleLocationChange={handleLocationChange}
@@ -204,6 +205,12 @@ function App() {
   )
 }
 
+const HeadlinePrimary = styled.h1`
+
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-align: center;
+`
 
 export default App;
 

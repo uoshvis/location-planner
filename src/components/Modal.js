@@ -8,10 +8,9 @@ ReactModal.setAppElement('#root')
 
 function Modal(props) {
 
-  const modalClassNames = {
+  const modalContentClassNames = {
     normal: 'modal-component',
     loading: 'modal-component loading',
-    overlay: 'overlay'
   }
 
   return (
@@ -19,8 +18,8 @@ function Modal(props) {
       isOpen={props.showModal}
       contentLabel={'Calendar form'}
       onRequestClose={props.onCloseModal}
-      className={props.isLoading ? modalClassNames.loading : modalClassNames.normal}
-      overlayClassName={modalClassNames.overlay}
+      className={props.isLoading ? modalContentClassNames.loading : modalContentClassNames.normal}
+      overlayClassName={{}}
       parentSelector={() => document.querySelector('.App')}
     >
       { 

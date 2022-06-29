@@ -115,9 +115,11 @@ const EventForm = props => {
                 className={cs({ invalid: !locationIsValid })}
                 onChange={handleInputChange}
             >
-                <option value="" defaultValue hidden >Please Choose...</option>
-                <option value="loc1">Location 1</option>
-                <option value="loc2">Location 2</option>
+                <Styled.Option value="" defaultValue hidden>
+                    Please Choose...
+                </Styled.Option>
+                <Styled.Option value="loc1">Location 1</Styled.Option>
+                <Styled.Option value="loc2">Location 2</Styled.Option>
             </Styled.Select>
             
             <Styled.Label htmlFor='start'>Start Date</Styled.Label>
@@ -160,14 +162,14 @@ const EventForm = props => {
                 onChange={handleDurationChange}
                 value={duration}
             >
-                <option value="30">30 min</option>
-                <option value="60">1 h</option>
-                <option value="90">1 h 30 min</option>
-                <option value="120">2 h</option>
+                <Styled.Option value="30">30 min</Styled.Option>
+                <Styled.Option value="60">1 h</Styled.Option>
+                <Styled.Option value="90">1 h 30 min</Styled.Option>
+                <Styled.Option value="120">2 h</Styled.Option>
                 {!ifInArray(durationValues, duration) ? 
-                    <option value={duration}> 
+                    <Styled.Option value={duration}> 
                         {durationIsValid ? formatMinDuration(duration) : 'Invalid duration'}
-                    </option> : ''
+                    </Styled.Option> : ''
                 }
             </Styled.Select>    
 

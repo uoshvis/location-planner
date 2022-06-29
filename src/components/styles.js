@@ -15,6 +15,16 @@ const HeadlineSecondary = styled.h2`
     text-align: center;
 `
 
+const EventForm = styled.form`
+  display: flex;
+  flex-direction: column;
+`
+
+const Label = styled.label`
+  padding-left: 5px;
+  font-size: 24px;
+`
+
 const AddBtnContainer = styled.div`
   margin: 10px;
   display: flex;
@@ -58,7 +68,9 @@ const ButtonCloseText = styled.span`
 `
 
 export { 
-  HeadlineSecondary, 
+  HeadlineSecondary,
+  EventForm,
+  Label,
   AddBtnContainer,
   UpdateBtnContainer,
   Button,

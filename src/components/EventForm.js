@@ -6,6 +6,8 @@ import { registerLocale } from  "react-datepicker";
 import lt from 'date-fns/locale/lt';
 import { ifInArray, formatMinDuration } from '../utils/helpers'
 import {useCalculateDuration, useDurationIsValid} from '../utils/customHooks'
+import * as Styled from './styles'
+ 
 
 registerLocale('lt', lt)
 
@@ -94,8 +96,8 @@ const EventForm = props => {
     }
 
     return (
-        <form className='event-form' onSubmit={(e) => handleSubmit(e)}>
-            <label className='label' htmlFor='title'>Title</label>
+        <Styled.EventForm onSubmit={ e => { handleSubmit(e) }} >
+            <Styled.Label htmlFor='title'>Title</Styled.Label>
             <input
                 type="text"
                 name="title"
@@ -104,8 +106,7 @@ const EventForm = props => {
                 value={event.title || ''}
                 onChange={handleInputChange} />
 
-
-            <label className='label' htmlFor="location-select">Location</label>
+            <Styled.Label htmlFor='location-select'>Location</Styled.Label>
             <select 
                 name="location"
                 id="location-select"
@@ -116,9 +117,7 @@ const EventForm = props => {
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
             </select>        
-            <div>
-
-                <label className='label' htmlFor='start'>Start Date</label>
+            <Styled.Label htmlFor='start'>Start Date</Styled.Label>
 
                 <DatePicker
                     className={startDateIsValid ? 'input' : 'input input_invalid'}
@@ -131,10 +130,9 @@ const EventForm = props => {
                     dateFormat="Pp"
                     id='start'
                 />
-            </div>        
             
-            <div>
-                <label className='label' htmlFor='end'>End Date</label>
+                <Styled.Label htmlFor='end'>End Date</Styled.Label>
+
                 
                 <DatePicker
                     className={durationIsValid && endDateIsValid ? 'input' : 'input input_invalid'}
@@ -147,10 +145,8 @@ const EventForm = props => {
                     dateFormat="Pp"
                     id='end'
                 />
-            </div>
 
-            <div>
-                <label className='label' htmlFor='duration'>Duration</label>
+            <Styled.Label htmlFor='duration'>Duration</Styled.Label>
                 <select
                     name='duration'
                     className={durationIsValid ? 'input' : 'input input_invalid'}
@@ -168,11 +164,10 @@ const EventForm = props => {
                         </option> : ''
                     }
                 </select>
-            </div>
 
             {props.actionBtns(dataIsValid)}
 
-        </form>
+        </Styled.EventForm>
     )   
 }
 

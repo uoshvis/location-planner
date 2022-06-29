@@ -25,6 +25,20 @@ const Label = styled.label`
   font-size: 24px;
 `
 
+const Input = styled.input`
+  border: none;
+  border-bottom: 1px solid #171212;
+  background-color: transparent;
+  font-size: 24px;
+  color: white;
+  width: 100%;
+
+  &.invalid {
+    background-color: purple;
+    border-radius: ${RADIUS_10};
+  }
+`
+
 const AddBtnContainer = styled.div`
   margin: 10px;
   display: flex;
@@ -71,6 +85,7 @@ export {
   HeadlineSecondary,
   EventForm,
   Label,
+  Input,
   AddBtnContainer,
   UpdateBtnContainer,
   Button,

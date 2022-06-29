@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
+import cs from 'classnames'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
@@ -98,13 +99,15 @@ const EventForm = props => {
     return (
         <Styled.EventForm onSubmit={ e => { handleSubmit(e) }} >
             <Styled.Label htmlFor='title'>Title</Styled.Label>
-            <input
+
+            <Styled.Input
                 type="text"
                 name="title"
-                id='title'                
-                className={titleIsValid ? 'input' : 'input input_invalid'}
+                id='title'
+                className={cs({ invalid: !titleIsValid })}
                 value={event.title || ''}
-                onChange={handleInputChange} />
+                onChange={handleInputChange}
+            />
 
             <Styled.Label htmlFor='location-select'>Location</Styled.Label>
             <select 

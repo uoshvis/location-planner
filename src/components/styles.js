@@ -7,6 +7,20 @@ const lightCyan = css`
   color: #3174ad;
 `
 
+const inputStyle = css`
+  border: none;
+  border-bottom: 1px solid #171212;
+  background-color: transparent;
+  font-size: 24px;
+  color: white;
+  width: 100%;
+`
+
+const invalidInputStyle = css`
+  background-color: purple;
+  border-radius: ${RADIUS_10};
+`
+
 const HeadlineSecondary = styled.h2`
     ${lightCyan};
 
@@ -26,16 +40,18 @@ const Label = styled.label`
 `
 
 const Input = styled.input`
-  border: none;
-  border-bottom: 1px solid #171212;
-  background-color: transparent;
-  font-size: 24px;
-  color: white;
-  width: 100%;
+  ${inputStyle};
 
   &.invalid {
-    background-color: purple;
-    border-radius: ${RADIUS_10};
+    ${invalidInputStyle};
+  }
+`
+
+const Select = styled.select`
+  ${inputStyle}
+
+  &.invalid {
+    ${invalidInputStyle};
   }
 `
 
@@ -86,6 +102,7 @@ export {
   EventForm,
   Label,
   Input,
+  Select,
   AddBtnContainer,
   UpdateBtnContainer,
   Button,

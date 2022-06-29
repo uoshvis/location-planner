@@ -99,7 +99,7 @@ const EventForm = props => {
     return (
         <Styled.EventForm onSubmit={ e => { handleSubmit(e) }} >
             <Styled.Label htmlFor='title'>Title</Styled.Label>
-
+            
             <Styled.Input
                 type="text"
                 name="title"
@@ -110,16 +110,19 @@ const EventForm = props => {
             />
 
             <Styled.Label htmlFor='location-select'>Location</Styled.Label>
-            <select 
+            
+            <Styled.Select
                 name="location"
                 id="location-select"
-                className={locationIsValid ? 'input' : 'input input_invalid'}  value={event.location}
+                className={cs({ invalid: !locationIsValid })}
                 onChange={handleInputChange}
-            >                
+            >
                 <option value="" defaultValue hidden >Please Choose...</option>
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
-            </select>        
+            </Styled.Select>
+
+            
             <Styled.Label htmlFor='start'>Start Date</Styled.Label>
 
                 <DatePicker

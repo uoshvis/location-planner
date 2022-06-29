@@ -15,6 +15,10 @@ const inputStyle = css`
   font-size: 24px;
   color: white;
   width: 100%;
+
+  ::placeholder {
+    color: white
+  }
 `
 
 const invalidInputStyle = css`
@@ -50,6 +54,13 @@ const Input = styled.input`
 
 const Select = styled.select`
   ${inputStyle}
+
+  option {
+    margin: 40px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  }
 
   &.invalid {
     ${invalidInputStyle};

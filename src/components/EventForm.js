@@ -104,6 +104,7 @@ const EventForm = props => {
                 className={cs({ invalid: !titleIsValid })}
                 value={event.title || ''}
                 onChange={handleInputChange}
+                placeholder='Enter title'
             />
 
             <Styled.Label htmlFor='location-select'>Location</Styled.Label>
@@ -152,23 +153,23 @@ const EventForm = props => {
             />
 
             <Styled.Label htmlFor='duration'>Duration</Styled.Label>
-                <select
-                    name='duration'
-                    className={durationIsValid ? 'input' : 'input input_invalid'}
-                    id='duration'
-                    onChange={handleDurationChange}
-                    value={duration}
-                >
-                    <option value="30">30 min</option>
-                    <option value="60">1 h</option>
-                    <option value="90">1 h 30 min</option>
-                    <option value="120">2 h</option>
-                    {!ifInArray(durationValues, duration) ? 
-                        <option value={duration}> 
-                            {durationIsValid ? formatMinDuration(duration) : 'Invalid duration'}
-                        </option> : ''
-                    }
-                </select>
+            <Styled.Select
+                name='duration'
+                className={cs({ invalid: !durationIsValid })}
+                id='duration'
+                onChange={handleDurationChange}
+                value={duration}
+            >
+                <option value="30">30 min</option>
+                <option value="60">1 h</option>
+                <option value="90">1 h 30 min</option>
+                <option value="120">2 h</option>
+                {!ifInArray(durationValues, duration) ? 
+                    <option value={duration}> 
+                        {durationIsValid ? formatMinDuration(duration) : 'Invalid duration'}
+                    </option> : ''
+                }
+            </Styled.Select>    
 
             {props.actionBtns(dataIsValid)}
 

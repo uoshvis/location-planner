@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import DatePicker from "react-datepicker";
 
 
 const RADIUS_10 = '10px'
@@ -97,7 +98,15 @@ const ButtonCloseText = styled.span`
   font-size: 15px;
 `
 
-export { 
+const StyledDatePicker = styled(DatePicker)`
+  ${inputStyle};
+
+  &.invalid {
+    ${invalidInputStyle};
+  }
+`
+
+export {
   HeadlineSecondary,
   EventForm,
   Label,
@@ -108,5 +117,6 @@ export {
   Button,
   ButtonSubmit,
   ButtonClose,
-  ButtonCloseText
+  ButtonCloseText,
+  StyledDatePicker
 }

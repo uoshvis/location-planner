@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import cs from 'classnames'
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale } from  "react-datepicker";
 import lt from 'date-fns/locale/lt';
 import { ifInArray, formatMinDuration } from '../utils/helpers'
 import {useCalculateDuration, useDurationIsValid} from '../utils/customHooks'
 import * as Styled from './styles'
- 
-
 registerLocale('lt', lt)
 
 const EventForm = props => {
@@ -121,36 +118,38 @@ const EventForm = props => {
                 <option value="loc1">Location 1</option>
                 <option value="loc2">Location 2</option>
             </Styled.Select>
-
             
             <Styled.Label htmlFor='start'>Start Date</Styled.Label>
 
-                <DatePicker
-                    className={startDateIsValid ? 'input' : 'input input_invalid'}
-                    selected={event.start}
-                    onChange={handleStartChange}
-                    locale="lt"
-                    showTimeSelect
-                    timeFormat="p"
-                    timeIntervals={30}
-                    dateFormat="Pp"
-                    id='start'
-                />
-            
-                <Styled.Label htmlFor='end'>End Date</Styled.Label>
+            <Styled.StyledDatePicker
+                className={
+                    cs({ invalid: !startDateIsValid || !durationIsValid })
+                }
+                selected={event.start}
+                onChange={handleStartChange}
+                locale="lt"
+                showTimeSelect
+                timeFormat="p"
+                timeIntervals={30}
+                dateFormat="Pp"
+                id='start'
+            />
 
+            <Styled.Label htmlFor='end'>End Date</Styled.Label>
                 
-                <DatePicker
-                    className={durationIsValid && endDateIsValid ? 'input' : 'input input_invalid'}
-                    selected={event.end}
-                    onChange={handleEndChange}
-                    locale="lt"
-                    showTimeSelect
-                    timeFormat="p"
-                    timeIntervals={30}
-                    dateFormat="Pp"
-                    id='end'
-                />
+            <Styled.StyledDatePicker
+                className={
+                    cs({ invalid: !endDateIsValid || !durationIsValid })
+                }
+                selected={event.end}
+                onChange={handleEndChange}
+                locale="lt"
+                showTimeSelect
+                timeFormat="p"
+                timeIntervals={30}
+                dateFormat="Pp"
+                id='end'
+            />
 
             <Styled.Label htmlFor='duration'>Duration</Styled.Label>
                 <select

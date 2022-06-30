@@ -109,7 +109,8 @@ const EventForm = props => {
 
             <Styled.Label htmlFor='location-select'>Location</Styled.Label>
             
-            <Styled.Select
+            <Styled.Input
+                as="select"
                 name="location"
                 id="location-select"
                 className={cs({ invalid: !locationIsValid })}
@@ -120,7 +121,7 @@ const EventForm = props => {
                 </Styled.Option>
                 <Styled.Option value="loc1">Location 1</Styled.Option>
                 <Styled.Option value="loc2">Location 2</Styled.Option>
-            </Styled.Select>
+            </Styled.Input>
             
             <Styled.Label htmlFor='start'>Start Date</Styled.Label>
 
@@ -155,7 +156,8 @@ const EventForm = props => {
             />
 
             <Styled.Label htmlFor='duration'>Duration</Styled.Label>
-            <Styled.Select
+            <Styled.Input
+                as='select'
                 name='duration'
                 className={cs({ invalid: !durationIsValid })}
                 id='duration'
@@ -171,7 +173,7 @@ const EventForm = props => {
                         {durationIsValid ? formatMinDuration(duration) : 'Invalid duration'}
                     </Styled.Option> : ''
                 }
-            </Styled.Select>    
+            </Styled.Input>    
 
             {props.actionBtns(dataIsValid)}
 

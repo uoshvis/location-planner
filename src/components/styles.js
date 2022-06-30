@@ -52,14 +52,6 @@ const Input = styled.input`
   }
 `
 
-const Select = styled.select`
-  ${inputStyle}
-
-  &.invalid {
-    ${invalidInputStyle};
-  }
-`
-
 const Option = styled.option`
   margin: 40px;
   background: rgba(0, 0, 0, 0.3);
@@ -122,7 +114,6 @@ export {
   EventForm,
   Label,
   Input,
-  Select,
   Option,
   AddBtnContainer,
   UpdateBtnContainer,

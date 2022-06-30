@@ -11,6 +11,7 @@ function Modal(props) {
   const modalContentClassNames = {
     normal: 'modal-component',
     loading: 'modal-component loading',
+    overlay: 'overlay'
   }
 
   return (
@@ -19,7 +20,7 @@ function Modal(props) {
       contentLabel={'Calendar form'}
       onRequestClose={props.onCloseModal}
       className={props.isLoading ? modalContentClassNames.loading : modalContentClassNames.normal}
-      overlayClassName={{}}
+      overlayClassName={modalContentClassNames.overlay}
       parentSelector={() => document.querySelector('.App')}
     >
       { 

@@ -101,6 +101,7 @@ const EventForm = props => {
                 type="text"
                 name="title"
                 id='title'
+                autoFocus
                 className={cs({ invalid: !titleIsValid })}
                 value={event.title || ''}
                 onChange={handleInputChange}
@@ -115,8 +116,9 @@ const EventForm = props => {
                 id="location-select"
                 className={cs({ invalid: !locationIsValid })}
                 onChange={handleInputChange}
+                value={event.location || ''}
             >
-                <Styled.Option value="" defaultValue hidden>
+                <Styled.Option  defaultValue hidden>
                     Please Choose...
                 </Styled.Option>
                 <Styled.Option value="loc1">Location 1</Styled.Option>

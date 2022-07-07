@@ -16,7 +16,8 @@ const events = [
     location: 'loc1',
     title: 'Point in Time Event loc1',
     start: now,
-    end: now,
+    end: new Date(now.getTime() + 20*60000)
+
   },
 
   {
@@ -32,7 +33,7 @@ const events = [
     location: 'loc2',
     title: 'Point in Time Event loc2',
     start: now,
-    end: now,
+    end: new Date(now.getTime() + 45*60000),
   },
     
 ]

@@ -10,7 +10,7 @@ Styling: CSS and Styled Components
 
 Testing: Cypress (e2e)
 
-### Functionalities:
+## Functionalities:
 
 - Calendar Event CRUD
 - Calendar view by location
@@ -31,3 +31,15 @@ Testing: Cypress (e2e)
 <p align="center">
   <img style='width: 50%' alt="Calendar view" src="./public/img/event-date-select-view.png" />
 </p>
+
+## Instructions to start and test
+
+```
+$ git clone https://github.com/uoshvis/location-planner.git
+$ npm install
+$ npm start
+
+# for tests: start dev server and
+
+$ npm run test:cypress
+```

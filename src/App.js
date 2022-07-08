@@ -213,6 +213,3 @@ const HeadlinePrimary = styled.h1`
 `
 
 export default App;
-
-
-// Todo Add darkMode

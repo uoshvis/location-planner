@@ -10,7 +10,7 @@ Styling: CSS and Styled Components
 
 Testing: Cypress (e2e)
 
-## Functionalities:
+## Functionalities
 
 - Calendar Event CRUD
 - Calendar view by location

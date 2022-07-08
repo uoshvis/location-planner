@@ -1,5 +1,4 @@
-# Patient planner
+# Location calendar planner
 
-Calendar with appointment capabilities.
+Calendar with location appointment capabilities.
 
-Development in progress...

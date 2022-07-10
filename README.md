@@ -8,7 +8,7 @@ Built with: React (uses hooks and render props)
 
 Styling: CSS and Styled Components
 
-Testing: Cypress (e2e)
+Testing (Beta): Cypress (e2e and component testing)
 
 ## Functionalities
 

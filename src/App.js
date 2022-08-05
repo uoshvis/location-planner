@@ -89,7 +89,7 @@ function App() {
     })
   }
 
-  const handeleSelectEvent = ({ id, location, title, start, end }) => {    
+  const handleSelectEvent = ({ id, location, title, start, end }) => {    
     setShowModal(true)
     setUpdateMode(true)
     setCurrentEvent({
@@ -185,7 +185,7 @@ function App() {
           events={events}
           defaultView={Views.MONTH}
           onSelectSlot={handleSelectSlot}
-          onSelectEvent={handeleSelectEvent}
+          onSelectEvent={handleSelectEvent}
         />
           
         {showModal &&

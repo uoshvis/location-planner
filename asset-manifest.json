@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/location-planner/static/css/main.e94bfc21.css",
+    "main.js": "/location-planner/static/js/main.53519682.js",
+    "static/js/787.bb51065a.chunk.js": "/location-planner/static/js/787.bb51065a.chunk.js",
+    "index.html": "/location-planner/index.html",
+    "main.e94bfc21.css.map": "/location-planner/static/css/main.e94bfc21.css.map",
+    "main.53519682.js.map": "/location-planner/static/js/main.53519682.js.map",
+    "787.bb51065a.chunk.js.map": "/location-planner/static/js/787.bb51065a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e94bfc21.css",
+    "static/js/main.53519682.js"
+  ]
+}
